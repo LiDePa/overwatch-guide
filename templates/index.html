@@ -11,17 +11,25 @@
 
 <body>
 
-    <p>Hellooo</p>
+    <h1>Overwatch Guide</h1>
 
-    <div id = "hero_container">
-        <p>I'm the hero container</p>
-    </div>
+    
+
+    <section id = "hero_container"></section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(function(){
             //add Button for each Hero
-            $('#hero_container').append('<div><p> {{ all_hero_names[20] }} </p></div>');
+            var all_hero_names = {{ all_hero_names | tojson }};
+            var i;
+            for (i = 0; i < all_hero_names.length; i++) {
+                $('#hero_container').append(
+                    '<div><a href="/' + all_hero_names[i] + '-questions">'
+                    + all_hero_names[i] 
+                    + '</a></div>'
+                );
+            }
         });
     </script>
 </body>

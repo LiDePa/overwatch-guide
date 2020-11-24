@@ -46,7 +46,7 @@ def questions(hero_name):
     if hero_name in all_hero_names:
         return render_template('questions.html', hero_name=hero_name)
     else: 
-        return "hero not found"
+        return "Hero not found."
 
 
 if __name__ == '__main__':
