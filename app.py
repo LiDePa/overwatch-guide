@@ -48,6 +48,13 @@ def questions(hero_name):
     else: 
         return "Hero not found."
 
+@app.route('/<hero_name>-answers')
+def answers(hero_name):
+    if hero_name in all_hero_names:
+        return render_template('answers.html', hero_name=hero_name)
+    else: 
+        return "Hero not found."
+
 
 if __name__ == '__main__':
     app.run(debug=True)

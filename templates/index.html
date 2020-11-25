@@ -13,24 +13,57 @@
 
     <h1>Overwatch Guide</h1>
 
-    
+    <!--select whether hero buttons are linking to questions or answers page-->
+    <nav>
+        <button id="questions_select">What can I learn from you?</button>
+        <button id="answers_select">How can I help you?</button>
+    </nav>
 
+    <!--container for hero buttons-->
     <section id = "hero_container"></section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(function(){
-            //add Button for each Hero
-            var all_hero_names = {{ all_hero_names | tojson }};
+
+        //get array with all hero names from flask
+        var all_hero_names = {{ all_hero_names | tojson }};
+
+        var questions_headline = '<h2>Select a hero you play a lot:</h2>'
+        var answers_headline = '<h2>Select a hero you want to play more:</h2>'
+        //for each Hero, create Button and Link to desired url destination
+        function createButtons(url_destination){
+            //add specific headline
+            if (url_destination == '-questions'){
+                $('#hero_container h2').remove();
+                $('#hero_container').append(questions_headline)
+            } else if (url_destination == '-answers'){
+                $('#hero_container h2').remove();
+                $('#hero_container').append(answers_headline)
+            }
+            $('#hero_container button').remove();
             var i;
             for (i = 0; i < all_hero_names.length; i++) {
-                $('#hero_container').append(
-                    '<div><a href="/' + all_hero_names[i] + '-questions">'
+                    $('#hero_container').append(
+                    '<button><a href="/' + all_hero_names[i] + url_destination + '">'
                     + all_hero_names[i] 
-                    + '</a></div>'
-                );
+                    + '</a></button>');
             }
+        }
+
+        //nav Buttons functionality
+        $('#answers_select').click(function(){
+            createButtons('-answers')
+        })
+        $('#questions_select').click(function(){
+            createButtons('-questions')
+        })
+
+        //executes on load
+        $(function(){
+            //initially load page with question-buttons
+            createButtons('-questions');
         });
+
     </script>
 </body>
 
