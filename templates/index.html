@@ -15,8 +15,8 @@
 
     <!--select whether hero buttons are linking to questions or answers page-->
     <nav>
-        <button id="questions_select">What can I learn from you?</button>
-        <button id="answers_select">How can I help you?</button>
+        <button id="nav_questions">What can I learn from you?</button>
+        <button id="nav_answers">How can I help you?</button>
     </nav>
 
     <!--container for hero buttons-->
@@ -27,41 +27,48 @@
 
         //get array with all hero names from flask
         var all_hero_names = {{ all_hero_names | tojson }};
-
+        
+        //define headlines
         var questions_headline = '<h2>Select a hero you play a lot:</h2>'
         var answers_headline = '<h2>Select a hero you want to play more:</h2>'
-        //for each Hero, create Button and Link to desired url destination
-        function createButtons(url_destination){
-            //add specific headline
+
+
+        //function to fill hero_container with headline and hero buttons (takes input from nav)
+        function fillHeroContainer(url_destination){
+
+            //show specific headline
+            $('#hero_container h2').remove();
             if (url_destination == '-questions'){
-                $('#hero_container h2').remove();
                 $('#hero_container').append(questions_headline)
             } else if (url_destination == '-answers'){
-                $('#hero_container h2').remove();
                 $('#hero_container').append(answers_headline)
             }
+
+            //delete buttons if they already exist
             $('#hero_container button').remove();
+            //loop through hero name array and add button for each hero
             var i;
             for (i = 0; i < all_hero_names.length; i++) {
-                    $('#hero_container').append(
-                    '<button><a href="/' + all_hero_names[i] + url_destination + '">'
-                    + all_hero_names[i] 
-                    + '</a></button>');
-            }
+                $('#hero_container').append(
+                '<button><a href="/' + all_hero_names[i] + url_destination + '">'
+                + all_hero_names[i] + '</a></button>')
+            };
         }
 
-        //nav Buttons functionality
-        $('#answers_select').click(function(){
-            createButtons('-answers')
+
+        //nav-buttons functionality
+        $('#nav_answers').click(function(){
+            fillHeroContainer('-answers')
         })
-        $('#questions_select').click(function(){
-            createButtons('-questions')
+        $('#nav_questions').click(function(){
+            fillHeroContainer('-questions')
         })
 
-        //executes on load
+
+        //executes on page load
         $(function(){
-            //initially load page with question-buttons
-            createButtons('-questions');
+            //initially link to questions-page
+            fillHeroContainer('-questions');
         });
 
     </script>
