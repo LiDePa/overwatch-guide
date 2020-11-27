@@ -22,15 +22,16 @@
     <!--container for hero buttons-->
     <section id = "hero_container"></section>
 
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
 
         //get array with all hero names from flask
         var all_hero_names = {{ all_hero_names | tojson }};
-        
+
         //define headlines
-        var questions_headline = '<h2>Select a hero you play a lot:</h2>'
-        var answers_headline = '<h2>Select a hero you want to play more:</h2>'
+        var headline_questions = '<h2>Select a hero you play a lot:</h2>'
+        var headline_answers = '<h2>Select a hero you want to play more:</h2>'
 
 
         //function to fill hero_container with headline and hero buttons (takes input from nav)
@@ -39,9 +40,9 @@
             //show specific headline
             $('#hero_container h2').remove();
             if (url_destination == '-questions'){
-                $('#hero_container').append(questions_headline)
+                $('#hero_container').append(headline_questions)
             } else if (url_destination == '-answers'){
-                $('#hero_container').append(answers_headline)
+                $('#hero_container').append(headline_answers)
             }
 
             //delete buttons if they already exist
