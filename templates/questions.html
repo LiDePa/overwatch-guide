@@ -11,19 +11,40 @@
 
 <body>
 
-  <h1>I'm the {{ hero_name }} questions page!</h1>
+    <h1>{{ hero_name }}</h1>
 
-  <section id="img_container"></section>
-  <section id="questions_container">
+    <div id="img_container"></div>
+	<form>
+		<div id="question_1">
+			<label for="question_1">Who is {{ hero_name }} good against?</label>
+			<input type="checkbox" id="Ashe">Ashe</input>
+		</div>
+	</form>
 
-    <form>
-      <label for="question_maps_1">Which maps is {{ hero_name }} strong on?</label>
-      <input type="checkbox">
-    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
 
-  </section>
+		//is filled by JSON file on page load
+        var all_hero_names = []
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		function fillWithHeroCeckboxes(question_id){
+			for (i = 0; i < all_hero_names.length; i++) {
+                $('#' + question_id).append(
+					'<input type="checkbox" id="' + all_hero_names[i] + '">'
+					+ all_hero_names[i] + '</input>'
+				)
+            };
+		}
+
+		//executes on page load
+		$(function(){
+			$.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
+				all_hero_names = data;
+				fillWithHeroCeckboxes('question_1');
+			});
+		})
+    
+    </script>
 </body>
 
 </html>

@@ -22,7 +22,7 @@
     </header>
 
     <!--container for hero buttons which is filled by script-->
-    <section id = "hero_container"></section>
+    <section id="hero_container"></section>
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -54,8 +54,9 @@
             var i;
             for (i = 0; i < all_hero_names.length; i++) {
                 $('#hero_container').append(
-                '<button><a href="/' + all_hero_names[i] + url_destination + '">'
-                + all_hero_names[i] + '</a></button>')
+					'<button><a href="/' + all_hero_names[i] + url_destination + '">'
+					+ all_hero_names[i] + '</a></button>'
+				)
             };
         }
 
@@ -71,10 +72,10 @@
 
         //executes on page load
         $(function(){
-            //get array with all hero names from JSON file
+            //fill all_hero_names array
             $.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
                 all_hero_names = data;
-                //initially link to questions-page
+                //initially link to questions-pages
                 fillHeroContainer('-questions');
             });
         });
