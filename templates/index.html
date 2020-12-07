@@ -72,7 +72,7 @@
         //executes on page load
         $(function(){
             //get array with all hero names from JSON file
-            $.getJSON('static/all_hero_names.json', function(data){
+            $.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
                 all_hero_names = data;
                 //initially link to questions-page
                 fillHeroContainer('-questions');
