@@ -21,22 +21,23 @@
         </nav>
     </header>
 
-    <!--container for hero buttons-->
+    <!--container for hero buttons which is filled by script-->
     <section id = "hero_container"></section>
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/all_hero_names.json"></script>
     <script>
-
-        //get array with all hero names from flask
-        var all_hero_names = {{ all_hero_names | tojson }};
 
         //define headlines
         var headline_questions = '<h2>Select a hero you play a lot:</h2>'
         var headline_answers = '<h2>Select a hero you want to play more:</h2>'
 
+        //is filled by JSON file on page load
+        var all_hero_names = []
 
-        //function to fill hero_container with headline and hero buttons (takes input from nav)
+        //function to fill hero_container with headline and hero buttons
+        //url_destination changes with nav selection
         function fillHeroContainer(url_destination){
 
             //show specific headline
@@ -59,7 +60,7 @@
         }
 
 
-        //nav-buttons functionality
+        //nav functionality
         $('#nav_answers').click(function(){
             fillHeroContainer('-answers')
         })
@@ -70,8 +71,12 @@
 
         //executes on page load
         $(function(){
-            //initially link to questions-page
-            fillHeroContainer('-questions');
+            //get array with all hero names from JSON file
+            $.getJSON('static/all_hero_names.json', function(data){
+                all_hero_names = data;
+                //initially link to questions-page
+                fillHeroContainer('-questions');
+            });
         });
 
     </script>
