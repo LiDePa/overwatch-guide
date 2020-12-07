@@ -1,0 +1,64 @@
+[{  
+    "map_name": "Busan",
+    "type": "Control"
+},{
+    "map_name": "Ilios",
+    "type": "Control"
+},{
+    "map_name": "Lijiang Tower",
+    "type": "Control"
+},{
+    "map_name": "Nepal",
+    "type": "Control"
+},{
+    "map_name": "Oasis",
+    "type": "Control"
+},{
+    "map_name": "Hanamura",
+    "type": "Assault"
+},{
+    "map_name": "Horizon Lunar Colony",
+    "type": "Assault"
+},{
+    "map_name": "Paris",
+    "type": "Assault"
+},{
+    "map_name": "Temple of Anubis",
+    "type": "Assault"
+},{
+    "map_name": "Volskaya Industries",
+    "type": "Assault"
+},{
+    "map_name": "Dorado",
+    "type": "Escort"
+},{
+    "map_name": "Havana",
+    "type": "Escort"
+},{
+    "map_name": "Junkertown",
+    "type": "Escort"
+},{
+    "map_name": "Rialto",
+    "type": "Escort"
+},{
+    "map_name": "Route 66",
+    "type": "Escort"
+},{
+    "map_name": "Watchpoint: Gibraltar",
+    "type": "Escort"
+},{
+    "map_name": "Blizzard World",
+    "type": "Hybrid"
+},{
+    "map_name": "Eichenwalde",
+    "type": "Hybrid"
+},{
+    "map_name": "Hollywood",
+    "type": "Hybrid"
+},{
+    "map_name": "King's Row",
+    "type": "Hybrid"
+},{
+    "map_name": "Numbani",
+    "type": "Hybrid"
+}]
