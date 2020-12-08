@@ -1,86 +1,75 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Overwatch Guide</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block body %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+<header>
+	<h1>Overwatch Guide</h1>
 
-<body>
+	<!--select whether hero buttons are linking to questions or answers page-->
+	<nav>
+		<button id="nav_questions">What can I learn from you?</button>
+		<button id="nav_answers">How can I help you?</button>
+	</nav>
+</header>
 
-    <header>
-        <h1>Overwatch Guide</h1>
-
-        <!--select whether hero buttons are linking to questions or answers page-->
-        <nav>
-            <button id="nav_questions">What can I learn from you?</button>
-            <button id="nav_answers">How can I help you?</button>
-        </nav>
-    </header>
-
-    <!--container for hero buttons which is filled by script-->
-    <section id="hero_container"></section>
-
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="static/all_hero_names.json"></script>
-    <script>
-
-        //define headlines
-        var headline_questions = '<h2>Select a hero you play a lot:</h2>'
-        var headline_answers = '<h2>Select a hero you want to play more:</h2>'
-
-        //is filled by JSON file on page load
-        var all_hero_names = []
-
-        //function to fill hero_container with headline and hero buttons
-        //url_destination changes with nav selection
-        function fillHeroContainer(url_destination){
-
-            //show specific headline
-            $('#hero_container h2').remove();
-            if (url_destination == '-questions'){
-                $('#hero_container').append(headline_questions)
-            } else if (url_destination == '-answers'){
-                $('#hero_container').append(headline_answers)
-            }
-
-            //delete buttons if they already exist
-            $('#hero_container button').remove();
-            //loop through hero name array and add button for each hero
-            var i;
-            for (i = 0; i < all_hero_names.length; i++) {
-                $('#hero_container').append(
-					'<button><a href="/' + all_hero_names[i] + url_destination + '">'
-					+ all_hero_names[i] + '</a></button>'
-				)
-            };
-        }
+<!--container for hero buttons which is filled by script-->
+<section id="hero_container"></section>
 
 
-        //nav functionality
-        $('#nav_answers').click(function(){
-            fillHeroContainer('-answers')
-        })
-        $('#nav_questions').click(function(){
-            fillHeroContainer('-questions')
-        })
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+	//define headlines
+	var headline_questions = '<h2>Select a hero you play a lot:</h2>'
+	var headline_answers = '<h2>Select a hero you want to play more:</h2>'
+
+	//is filled by JSON file on page load
+	var all_hero_names = []
+
+	//function to fill hero_container with headline and hero buttons
+	//url_destination changes with nav selection
+	function fillHeroContainer(url_destination){
+
+		//show specific headline
+		$('#hero_container h2').remove();
+		if (url_destination == '-questions'){
+			$('#hero_container').append(headline_questions)
+		} else if (url_destination == '-answers'){
+			$('#hero_container').append(headline_answers)
+		}
+
+		//delete buttons if they already exist
+		$('#hero_container button').remove();
+		//loop through hero name array and add button for each hero
+		var i;
+		for (i = 0; i < all_hero_names.length; i++) {
+			$('#hero_container').append(
+				'<button><a href="/' + all_hero_names[i] + url_destination + '">'
+				+ all_hero_names[i] + '</a></button>'
+			)
+		};
+	}
 
 
-        //executes on page load
-        $(function(){
-            //fill all_hero_names array
-            $.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
-                all_hero_names = data;
-                //initially link to questions-pages
-                fillHeroContainer('-questions');
-            });
-        });
+	//nav functionality
+	$('#nav_answers').click(function(){
+		fillHeroContainer('-answers')
+	})
+	$('#nav_questions').click(function(){
+		fillHeroContainer('-questions')
+	})
 
-    </script>
-</body>
 
-</html>
+	//executes on page load
+	$(function(){
+		//fill all_hero_names array
+		$.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
+			all_hero_names = data;
+			//initially link to questions-pages
+			fillHeroContainer('-questions');
+		});
+	});
+
+</script>
+
+{% endblock %}
