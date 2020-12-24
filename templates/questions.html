@@ -9,9 +9,21 @@
 <h2>{{ hero_name }}</h2>
 
 <div id="img_container"></div>
-<form>
+<form action="/Ana-questions" method="POST">
 	<div id="question_1">
 		<label for="question_1">Who is {{ hero_name }} good against?</label>
+	</div>
+	<div id="question_2">
+		<label for="question_2">Who scares you when playing {{ hero_name }}?</label>
+	</div>
+	<div id="question_3">
+		<label for="question_3">Who do you love having on your team when playing {{ hero_name }}?</label>
+	</div>
+	<div id="question_4">
+		<label for="question_4">Who's ultimate should always be combined with {{ hero_name }}'s ultimate?</label>
+	</div>
+	<div id="question_5">
+		<label for="question_5">What map is {{ hero_name }} especially good on?</label>
 	</div>
 	<input type="submit" value="Submit">
 </form>
@@ -25,8 +37,7 @@
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
 			$('#' + question_id).append(
-				'<input type="checkbox" id="' + all_hero_names[i] + '">'
-				+ all_hero_names[i] + '</input>'
+				'<input type="checkbox" name="hero_result" value="' + i + '">' + all_hero_names[i] + '</input>'
 			)
 		};
 	}
@@ -38,6 +49,9 @@
 		$.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
 			all_hero_names = data;
 			fillWithHeroCeckboxes('question_1');
+			// fillWithHeroCeckboxes('question_2');
+			// fillWithHeroCeckboxes('question_3');
+			// fillWithHeroCeckboxes('question_4');
 		});
 	})
 
