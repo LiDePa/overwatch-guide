@@ -9,7 +9,7 @@
 <h2>{{ hero_name }}</h2>
 
 <div id="img_container"></div>
-<form action="/Ana-questions" method="POST">
+<form action="/{{ hero_name }}-questions" method="POST">
 	<div id="question_1">
 		<label for="question_1">Who is {{ hero_name }} good against?</label>
 	</div>
@@ -23,6 +23,9 @@
 		<label for="question_4">Who's ultimate should always be combined with {{ hero_name }}'s ultimate?</label>
 	</div>
 	<div id="question_5">
+		<label for="question_4">Who's ultimate can {{ hero_name }} deny easily?</label>
+	</div>
+	<div id="question_6">
 		<label for="question_5">What map is {{ hero_name }} especially good on?</label>
 	</div>
 	<input type="submit" value="Submit">
@@ -52,6 +55,7 @@
 			// fillWithHeroCeckboxes('question_2');
 			// fillWithHeroCeckboxes('question_3');
 			// fillWithHeroCeckboxes('question_4');
+			// fillWithHeroCeckboxes('question_5');
 		});
 	})
 
