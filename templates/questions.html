@@ -23,11 +23,22 @@
 		<label for="question_4">Who's ultimate should always be combined with {{ hero_name }}'s ultimate?</label>
 	</div>
 	<div id="question_5">
-		<label for="question_4">Who's ultimate can {{ hero_name }} deny easily?</label>
+		<label for="question_5">What enemy ultimate can {{ hero_name }} deny easily?</label>
 	</div>
+	<!--
 	<div id="question_6">
-		<label for="question_5">What map is {{ hero_name }} especially good on?</label>
+		<label for="question_6">What map type is {{ hero_name }} especially good on?</label>
 	</div>
+	<div id="question_7">
+		<label for="question_7">What map type is {{ hero_name }} rather bad on?</label>
+	</div>
+	<div id="question_8">
+		<label for="question_8">Is there a map where it'd be stupid not to play {{ hero_name }}?</label>
+	</div>
+	<div id="question_9">
+		<label for="question_9">Is there a map where you'd never play {{ hero_name }}?</label>
+	</div>
+	-->
 	<input type="submit" value="Submit">
 </form>
 
@@ -40,7 +51,7 @@
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
 			$('#' + question_id).append(
-				'<input type="checkbox" name="hero_result" value="' + i + '">' + all_hero_names[i] + '</input>'
+				'<input type="checkbox" name="result" value="' + question_id.replace('question_','') + '_' + i + '">' + all_hero_names[i] + '</input>'
 			)
 		};
 	}
@@ -52,10 +63,10 @@
 		$.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
 			all_hero_names = data;
 			fillWithHeroCeckboxes('question_1');
-			// fillWithHeroCeckboxes('question_2');
-			// fillWithHeroCeckboxes('question_3');
-			// fillWithHeroCeckboxes('question_4');
-			// fillWithHeroCeckboxes('question_5');
+			fillWithHeroCeckboxes('question_2');
+			fillWithHeroCeckboxes('question_3');
+			fillWithHeroCeckboxes('question_4');
+			fillWithHeroCeckboxes('question_5');
 		});
 	})
 
