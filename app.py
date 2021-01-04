@@ -36,7 +36,15 @@ class Question4(QuestionsBase):
 	__tablename__ = 'Question4'
 class Question5(QuestionsBase):
 	__tablename__ = 'Question5'
-all_db_tables = [Question1, Question2, Question3, Question4, Question5]
+class Question6(QuestionsBase):
+	__tablename__ = 'Question6'
+class Question7(QuestionsBase):
+	__tablename__ = 'Question7'
+class Question8(QuestionsBase):
+	__tablename__ = 'Question8'
+class Question9(QuestionsBase):
+	__tablename__ = 'Question9'
+all_question_tables = [Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8, Question9]
 
 
 #buttons to each hero in all_hero_names are created by script inside index.html
@@ -50,17 +58,17 @@ def index():
 @app.route('/<hero_name>-questions', methods=['POST', 'GET'])
 def questions(hero_name):
 	if request.method == 'POST':
-		#get results n as strings in format "A_B"
-		#where A is the question number and B is the place of the selected hero in all_hero_names
-		for n in request.form.getlist("result"):
-			db_table = all_db_tables[int(n.split("_")[0]) - 1]
-			selected_hero = all_hero_names[int(n.split("_")[1])]
+		#get results as strings in format "A_B"
+		#where A is the value of the selected checkbox and B is the table number it belongs to
+		for result in request.form.getlist("result"):
+			result_value = result.split("_")[0]
+			result_table = all_question_tables[int(result.split("_")[1]) - 1]
 			#if the combination of current_hero and selected_result already exists in table, increase its commonness value
-			if db.session.query(db.exists().where(and_(db_table.current_hero == hero_name, db_table.selected_result == selected_hero))).scalar() == True:
-				existing_data = db_table.query.filter(and_(db_table.current_hero == hero_name, db_table.selected_result == selected_hero)).first()
+			if db.session.query(db.exists().where( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value) )).scalar() == True:
+				existing_data = result_table.query.filter( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value )).first()
 				existing_data.commonness += 1
 			else:
-				new_data = db_table(current_hero = hero_name, selected_result = selected_hero)
+				new_data = result_table(current_hero = hero_name, selected_result = result_value)
 				db.session.add(new_data)
 			db.session.commit()
 		return "Submitted successfully"

@@ -25,7 +25,6 @@
 	<div id="question_5">
 		<label for="question_5">What enemy ultimate can {{ hero_name }} deny easily?</label>
 	</div>
-	<!--
 	<div id="question_6">
 		<label for="question_6">What map type is {{ hero_name }} especially good on?</label>
 	</div>
@@ -38,22 +37,51 @@
 	<div id="question_9">
 		<label for="question_9">Is there a map where you'd never play {{ hero_name }}?</label>
 	</div>
-	-->
 	<input type="submit" value="Submit">
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-	//is filled by json file on page load
+	//are filled by json file on page load
 	var all_hero_names = []
+	var all_map_names
 
+	//append a checkbox for every hero to the according question div
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
 			$('#' + question_id).append(
-				'<input type="checkbox" name="result" value="' + question_id.replace('question_','') + '_' + i + '">' + all_hero_names[i] + '</input>'
+				'<input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</input>'
 			)
 		};
+	}
+
+	//append a checkbox for every map to the according question div
+	function fillWithMapCheckboxes(question_id){
+		$.each(all_map_names, function(i){
+			//if current map is another type than the map before, append a map type headline first
+			if (i == 0 || all_map_names[i].map_type != all_map_names[i-1].map_type) {
+				$('#' + question_id).append(
+					'<span>' + all_map_names[i].map_type + ':</span>' + 
+					'<input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input>'
+				)
+			} else {
+				$('#' + question_id).append(
+					'<input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input>'
+				)
+			};
+		});
+	}
+
+	//append a checkbox for every map type to the according question div
+	function fillWithMapTypeCheckboxes(question_id){
+		$.each(all_map_names, function(i){
+			if (i == 0 || all_map_names[i].map_type != all_map_names[i-1].map_type) {
+				$('#' + question_id).append(
+					'<input type="checkbox" name="result" value="' + all_map_names[i].map_type + question_id.replace('question','') + '">' + all_map_names[i].map_type + '</input>'
+				)
+			}
+		});
 	}
 
 	//executes on page load
@@ -67,6 +95,15 @@
 			fillWithHeroCeckboxes('question_3');
 			fillWithHeroCeckboxes('question_4');
 			fillWithHeroCeckboxes('question_5');
+		});
+		//fill all_map_names with data from json file
+		//and use it to create content
+		$.getJSON("{{ url_for('static', filename='all_map_names.json') }}", function(data){
+			all_map_names = data;
+			fillWithMapTypeCheckboxes('question_6');
+			fillWithMapTypeCheckboxes('question_7');
+			fillWithMapCheckboxes('question_8');
+			fillWithMapCheckboxes('question_9');
 		});
 	})
 

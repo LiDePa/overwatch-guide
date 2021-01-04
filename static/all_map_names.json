@@ -1,6 +1,6 @@
 [{  
     "map_name": "Busan",
-    "map_map_type": "Control"
+    "map_type": "Control"
 },{
     "map_name": "Ilios",
     "map_type": "Control"
