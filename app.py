@@ -1,16 +1,29 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
-import json, os
+import json, os, sys
 
 
 app = Flask(__name__)
 
 
-#get all_hero_names array from json file in static folder
-path = os.path.join(app.root_path, 'static', 'all_hero_names.json')
-with open(path) as (data):
-    all_hero_names = json.load(data)
+
+all_hero_names = []
+all_map_names = []
+all_map_types = []
+
+#get all hero and map names from json file in static folder and fill the according array
+path_hero = os.path.join(app.root_path, 'static', 'all_hero_names.json')
+with open(path_hero) as (data_hero):
+    all_hero_names = json.load(data_hero)
+path_map = os.path.join(app.root_path, 'static', 'all_map_names.json')
+with open(path_map) as (data_map):
+	map_list = json.load(data_map)
+	for i in range(len(map_list)):
+		all_map_names.append(map_list[i]['map_name'])
+		if (map_list[i]['map_type'] != map_list[i-1]['map_type']):
+			all_map_types.append(map_list[i]['map_type'])
+
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///results.db'
@@ -47,7 +60,6 @@ class Question9(QuestionsBase):
 all_question_tables = [Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8, Question9]
 
 
-#buttons to each hero in all_hero_names are created by script inside index.html
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -60,8 +72,8 @@ def questions(hero_name):
 	if request.method == 'POST':
 		#get results as strings in format "A_B"
 		#where A is the value of the selected checkbox and B is the table number it belongs to
-		for result in request.form.getlist("result"):
-			result_value = result.split("_")[0]
+		for result in request.form.getlist('result'):
+			result_value = result.split('_')[0]
 			result_table = all_question_tables[int(result.split("_")[1]) - 1]
 			#if the combination of current_hero and selected_result already exists in table, increase its commonness value
 			if db.session.query(db.exists().where( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value) )).scalar() == True:
@@ -70,14 +82,15 @@ def questions(hero_name):
 			else:
 				new_data = result_table(current_hero = hero_name, selected_result = result_value)
 				db.session.add(new_data)
-			db.session.commit()
-		return "Submitted successfully"
+			if result_value in (all_hero_names + all_map_names + all_map_types):
+				db.session.commit()
+		return 'Submitted successfully'
 	else:
 		#check if url actually contains a hero
-		if hero_name in all_hero_names:
+		if hero_name:
 			return render_template('questions.html', hero_name=hero_name)
 		else:
-			return "Hero not found."
+			return 'Hero not found.'
 
 
 #answers pages for each hero in all_hero_names
@@ -88,7 +101,7 @@ def answers(hero_name):
 	if hero_name in all_hero_names:
 		return render_template('answers.html', hero_name=hero_name)
 	else: 
-		return "Hero not found."
+		return 'Hero not found.'
 
 
 if __name__ == '__main__':

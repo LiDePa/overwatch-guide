@@ -11,25 +11,25 @@
 <div id="img_container"></div>
 <form action="/{{ hero_name }}-questions" method="POST">
 	<div id="question_1">
-		<label for="question_1">Who is {{ hero_name }} good against?</label>
+		<label for="question_1">Who is {{ hero_name }} really good against?</label>
 	</div>
 	<div id="question_2">
 		<label for="question_2">Who scares you when playing {{ hero_name }}?</label>
 	</div>
 	<div id="question_3">
-		<label for="question_3">Who do you love having on your team when playing {{ hero_name }}?</label>
+		<label for="question_3">Who is an especially good Teammate for {{ hero_name }}?</label>
 	</div>
 	<div id="question_4">
 		<label for="question_4">Who's ultimate should always be combined with {{ hero_name }}'s ultimate?</label>
 	</div>
 	<div id="question_5">
-		<label for="question_5">What enemy ultimate can {{ hero_name }} deny easily?</label>
+		<label for="question_5">Is there an enemy ultimate that {{ hero_name }} can deny easily?</label>
 	</div>
 	<div id="question_6">
-		<label for="question_6">What map type is {{ hero_name }} especially good on?</label>
+		<label for="question_6">Is there a map type where {{ hero_name }} is especially good?</label>
 	</div>
 	<div id="question_7">
-		<label for="question_7">What map type is {{ hero_name }} rather bad on?</label>
+		<label for="question_7">Is there a map type where {{ hero_name }} is rather bad?</label>
 	</div>
 	<div id="question_8">
 		<label for="question_8">Is there a map where it'd be stupid not to play {{ hero_name }}?</label>
@@ -50,9 +50,10 @@
 	//append a checkbox for every hero to the according question div
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
-			$('#' + question_id).append(
-				'<input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</input>'
-			)
+			if (all_hero_names[i] != {{ hero_name | tojson}}) {
+				$('#' + question_id).append(
+					'<input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</input>'
+				)};
 		};
 	}
 
