@@ -1,21 +1,25 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 import json, os, sys
+
 
 
 app = Flask(__name__)
 
 
 
+#get all hero and map names from json files in static folder and fill the according arrays
+
 all_hero_names = []
 all_map_names = []
 all_map_types = []
 
-#get all hero and map names from json file in static folder and fill the according array
+######################not sure if os.path works on a web server#####################
 path_hero = os.path.join(app.root_path, 'static', 'all_hero_names.json')
 with open(path_hero) as (data_hero):
     all_hero_names = json.load(data_hero)
+
 path_map = os.path.join(app.root_path, 'static', 'all_map_names.json')
 with open(path_map) as (data_map):
 	map_list = json.load(data_map)
@@ -26,6 +30,8 @@ with open(path_map) as (data_map):
 
 
 
+#initialize database
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///results.db'
 db = SQLAlchemy(app)
 
@@ -60,48 +66,62 @@ class Question9(QuestionsBase):
 all_question_tables = [Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8, Question9]
 
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
+
+def commitResult(hero_name, result_value, result_table):
+	#if the combination of hero_name and result_value already exists in result_table, increase its commonness value
+	#######################could be cleaner, too many db queries##########################
+	if db.session.query(db.exists().where( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value) )).scalar() == True:
+		existing_data = result_table.query.filter( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value )).first()
+		existing_data.commonness += 1
+	else:
+		new_data = result_table(current_hero = hero_name, selected_result = result_value)
+		db.session.add(new_data)
+	#check if result is valid before comitting
+	if result_value in (all_hero_names + all_map_names + all_map_types) and hero_name in all_hero_names:
+		db.session.commit()
+
 #questions pages for each hero in all_hero_names
-#is used to fill database
+#which are used to fill database
 @app.route('/<hero_name>-questions', methods=['POST', 'GET'])
 def questions(hero_name):
 	if request.method == 'POST':
 		#get results as strings in format "A_B"
-		#where A is the value of the selected checkbox and B is the table number it belongs to
+		#where A is the user selected checkbox (=result_value) and B is the table number it belongs to (=result_table)
 		for result in request.form.getlist('result'):
 			result_value = result.split('_')[0]
-			result_table = all_question_tables[int(result.split("_")[1]) - 1]
-			#if the combination of current_hero and selected_result already exists in table, increase its commonness value
-			if db.session.query(db.exists().where( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value) )).scalar() == True:
-				existing_data = result_table.query.filter( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value )).first()
-				existing_data.commonness += 1
-			else:
-				new_data = result_table(current_hero = hero_name, selected_result = result_value)
-				db.session.add(new_data)
-			if result_value in (all_hero_names + all_map_names + all_map_types):
-				db.session.commit()
+			result_table = all_question_tables[int(result.split('_')[1]) - 1]
+			commitResult(hero_name, result_value, result_table)
 		return 'Submitted successfully'
 	else:
 		#check if url actually contains a hero
-		if hero_name:
+		if hero_name in all_hero_names:
 			return render_template('questions.html', hero_name=hero_name)
 		else:
 			return 'Hero not found.'
 
 
-#answers pages for each hero in all_hero_names
-#displays contents of database
-@app.route('/<hero_name>-answers')
+
+#results pages for each hero in all_hero_names
+#which display contents of database
+@app.route('/<hero_name>-results')
 def answers(hero_name):
 	#check if url actually contains a hero
 	if hero_name in all_hero_names:
-		return render_template('answers.html', hero_name=hero_name)
+		for table in all_question_tables:
+			for result in db.session.query(table).\
+				filter_by(current_hero=hero_name):
+				
+				print(result.selected_result, file=sys.stderr)
+		return render_template('results.html', hero_name=hero_name)
 	else: 
 		return 'Hero not found.'
+
 
 
 if __name__ == '__main__':

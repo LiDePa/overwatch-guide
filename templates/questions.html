@@ -50,7 +50,7 @@
 	//append a checkbox for every hero to the according question div
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
-			if (all_hero_names[i] != {{ hero_name | tojson}}) {
+			if (all_hero_names[i] != {{ hero_name | tojson }}) {
 				$('#' + question_id).append(
 					'<input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</input>'
 				)};

@@ -8,7 +8,7 @@
 	<!--select whether hero buttons are linking to questions or answers page-->
 	<nav>
 		<button id="nav_questions">What can I learn from you?</button>
-		<button id="nav_answers">How can I help you?</button>
+		<button id="nav_results">How can I help you?</button>
 	</nav>
 </header>
 
@@ -21,10 +21,12 @@
 
 	//define headlines
 	var headline_questions = '<h2>Select a hero you play a lot:</h2>'
-	var headline_answers = '<h2>Select a hero you want to play more:</h2>'
+	var headline_results = '<h2>Select a hero you want to play more:</h2>'
 
 	//is filled by JSON file on page load
 	var all_hero_names = []
+
+
 
 	//function to fill hero_container with headline and hero buttons
 	//url_destination changes with nav selection
@@ -34,8 +36,8 @@
 		$('#hero_container h2').remove();
 		if (url_destination == '-questions'){
 			$('#hero_container').append(headline_questions)
-		} else if (url_destination == '-answers'){
-			$('#hero_container').append(headline_answers)
+		} else if (url_destination == '-results'){
+			$('#hero_container').append(headline_results)
 		}
 
 		//delete buttons if they already exist
@@ -51,13 +53,15 @@
 	}
 
 
+
 	//nav functionality
-	$('#nav_answers').click(function(){
-		fillHeroContainer('-answers')
+	$('#nav_results').click(function(){
+		fillHeroContainer('-results')
 	})
 	$('#nav_questions').click(function(){
 		fillHeroContainer('-questions')
 	})
+
 
 
 	//executes on page load
