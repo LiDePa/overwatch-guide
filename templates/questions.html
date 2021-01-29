@@ -47,7 +47,9 @@
 	var all_hero_names = []
 	var all_map_names
 
-	//append a checkbox for every hero to the according question div
+
+
+	//function to append a checkbox for every hero to the according question div
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
 			if (all_hero_names[i] != {{ hero_name | tojson }}) {
@@ -57,7 +59,9 @@
 		};
 	}
 
-	//append a checkbox for every map to the according question div
+
+
+	//function to append a checkbox for every map to the according question div
 	function fillWithMapCheckboxes(question_id){
 		$.each(all_map_names, function(i){
 			//if current map is another type than the map before, append a map type headline first
@@ -74,7 +78,9 @@
 		});
 	}
 
-	//append a checkbox for every map type to the according question div
+
+
+	//function to append a checkbox for every map type to the according question div
 	function fillWithMapTypeCheckboxes(question_id){
 		$.each(all_map_names, function(i){
 			if (i == 0 || all_map_names[i].map_type != all_map_names[i-1].map_type) {
@@ -84,6 +90,8 @@
 			}
 		});
 	}
+
+
 
 	//executes on page load
 	$(function(){
@@ -97,7 +105,7 @@
 			fillWithHeroCeckboxes('question_4');
 			fillWithHeroCeckboxes('question_5');
 		});
-		//fill all_map_names with data from json file
+		//fill all_map_names array with data from json file
 		//and use it to create content
 		$.getJSON("{{ url_for('static', filename='all_map_names.json') }}", function(data){
 			all_map_names = data;

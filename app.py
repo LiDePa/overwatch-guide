@@ -42,9 +42,6 @@ class QuestionsBase(db.Model):
 	current_hero = db.Column(db.String(30))
 	selected_result = db.Column(db.String(30))
 	commonness = db.Column(db.Integer, default = 1)
-	#date?
-#	def __repr__(self):
-#        return '<Task %r>' % self.id
 class Question1(QuestionsBase):
 	__tablename__ = 'Question1'
 class Question2(QuestionsBase):
@@ -111,14 +108,14 @@ def questions(hero_name):
 #which display contents of database
 @app.route('/<hero_name>-results')
 def answers(hero_name):
-	#check if url actually contains a hero
+	#check if url actually contains the name of a hero
 	if hero_name in all_hero_names:
+		filtered_results = list()
 		for table in all_question_tables:
-			for result in db.session.query(table).\
-				filter_by(current_hero=hero_name):
-				
-				print(result.selected_result, file=sys.stderr)
-		return render_template('results.html', hero_name=hero_name)
+			result = db.session.query(table).filter_by(current_hero=hero_name)
+			result = result.order_by(table.commonness.desc()).limit(5).all()
+			filtered_results += result
+		return render_template('results.html', hero_name=hero_name, filtered_results=filtered_results)
 	else: 
 		return 'Hero not found.'
 

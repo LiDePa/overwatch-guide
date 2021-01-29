@@ -1,5 +1,7 @@
-h1 {
-    font-family: Arial;
+
+body {
+	font-family: Teko, sans-serif;
+	font-weight: 200;
 }
 
 ol {
