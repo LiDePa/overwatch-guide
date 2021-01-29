@@ -70,17 +70,17 @@ def index():
 
 
 
-def commitResult(current_hero, result_value, result_table):
-	#if the combination of current_hero and result_value already exists in result_table, increase its commonness value
+def commitResult(current_hero, selected_result, result_table):
+	#if the combination of current_hero and selected_result already exists in result_table, increase its commonness value
 	#######################could be cleaner, too many db queries##########################
-	if db.session.query(db.exists().where( and_( result_table.current_hero==current_hero, result_table.selected_result==result_value) )).scalar() == True:
-		existing_data = result_table.query.filter( and_( result_table.current_hero==current_hero, result_table.selected_result==result_value )).first()
+	if db.session.query(db.exists().where( and_( result_table.current_hero==current_hero, result_table.selected_result==selected_result) )).scalar() == True:
+		existing_data = result_table.query.filter( and_( result_table.current_hero==current_hero, result_table.selected_result==selected_result )).first()
 		existing_data.commonness += 1
 	else:
-		new_data = result_table(current_hero = current_hero, selected_result = result_value)
+		new_data = result_table(current_hero = current_hero, selected_result = selected_result)
 		db.session.add(new_data)
 	#check if result is valid before comitting
-	if result_value in (all_hero_names + all_map_names + all_map_types) and current_hero in all_hero_names:
+	if selected_result in (all_hero_names + all_map_names + all_map_types) and current_hero in all_hero_names:
 		db.session.commit()
 
 #questions pages for each hero in all_hero_names
@@ -89,11 +89,11 @@ def commitResult(current_hero, result_value, result_table):
 def questions(current_hero):
 	if request.method == 'POST':
 		#get results as strings in format "A_B"
-		#where A is the user selected checkbox (=result_value) and B is the table number it belongs to (=result_table)
+		#where A is the user selected checkbox (=selected_result) and B is the table number it belongs to (=result_table)
 		for result in request.form.getlist('result'):
-			result_value = result.split('_')[0]
+			selected_result = result.split('_')[0]
 			result_table = all_question_tables[int(result.split('_')[1]) - 1]
-			commitResult(current_hero, result_value, result_table)
+			commitResult(current_hero, selected_result, result_table)
 		return 'Submitted successfully'
 	else:
 		#check if url actually contains a hero
