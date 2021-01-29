@@ -6,36 +6,36 @@
 	<h1>Overwatch Guide</h1>
 </header>
 
-<h2>{{ hero_name }}</h2>
+<h2>{{ current_hero }}</h2>
 
 <div id="img_container"></div>
-<form action="/{{ hero_name }}-questions" method="POST">
+<form action="/{{ current_hero }}-questions" method="POST">
 	<div id="question_1">
-		<label for="question_1">Who is {{ hero_name }} really good against?</label>
+		<label for="question_1">Who is {{ current_hero }} really good against?</label>
 	</div>
 	<div id="question_2">
-		<label for="question_2">Who scares you when playing {{ hero_name }}?</label>
+		<label for="question_2">Who scares you when playing {{ current_hero }}?</label>
 	</div>
 	<div id="question_3">
-		<label for="question_3">Who is an especially good Teammate for {{ hero_name }}?</label>
+		<label for="question_3">Who is an especially good Teammate for {{ current_hero }}?</label>
 	</div>
 	<div id="question_4">
-		<label for="question_4">Who's ultimate should always be combined with {{ hero_name }}'s ultimate?</label>
+		<label for="question_4">Who's ultimate should always be combined with {{ current_hero }}'s ultimate?</label>
 	</div>
 	<div id="question_5">
-		<label for="question_5">Is there an enemy ultimate that {{ hero_name }} can deny easily?</label>
+		<label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label>
 	</div>
 	<div id="question_6">
-		<label for="question_6">Is there a map type where {{ hero_name }} is especially good?</label>
+		<label for="question_6">Is there a map type where {{ current_hero }} is especially good?</label>
 	</div>
 	<div id="question_7">
-		<label for="question_7">Is there a map type where {{ hero_name }} is rather bad?</label>
+		<label for="question_7">Is there a map type where {{ current_hero }} is rather bad?</label>
 	</div>
 	<div id="question_8">
-		<label for="question_8">Is there a map where it'd be stupid not to play {{ hero_name }}?</label>
+		<label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label>
 	</div>
 	<div id="question_9">
-		<label for="question_9">Is there a map where you'd never play {{ hero_name }}?</label>
+		<label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label>
 	</div>
 	<input type="submit" value="Submit">
 </form>
@@ -52,7 +52,7 @@
 	//function to append a checkbox for every hero to the according question div
 	function fillWithHeroCeckboxes(question_id){
 		for (i = 0; i < all_hero_names.length; i++) {
-			if (all_hero_names[i] != {{ hero_name | tojson }}) {
+			if (all_hero_names[i] != {{ current_hero | tojson }}) {
 				$('#' + question_id).append(
 					'<input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</input>'
 				)};

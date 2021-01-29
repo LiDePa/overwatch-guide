@@ -70,35 +70,35 @@ def index():
 
 
 
-def commitResult(hero_name, result_value, result_table):
-	#if the combination of hero_name and result_value already exists in result_table, increase its commonness value
+def commitResult(current_hero, result_value, result_table):
+	#if the combination of current_hero and result_value already exists in result_table, increase its commonness value
 	#######################could be cleaner, too many db queries##########################
-	if db.session.query(db.exists().where( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value) )).scalar() == True:
-		existing_data = result_table.query.filter( and_( result_table.current_hero==hero_name, result_table.selected_result==result_value )).first()
+	if db.session.query(db.exists().where( and_( result_table.current_hero==current_hero, result_table.selected_result==result_value) )).scalar() == True:
+		existing_data = result_table.query.filter( and_( result_table.current_hero==current_hero, result_table.selected_result==result_value )).first()
 		existing_data.commonness += 1
 	else:
-		new_data = result_table(current_hero = hero_name, selected_result = result_value)
+		new_data = result_table(current_hero = current_hero, selected_result = result_value)
 		db.session.add(new_data)
 	#check if result is valid before comitting
-	if result_value in (all_hero_names + all_map_names + all_map_types) and hero_name in all_hero_names:
+	if result_value in (all_hero_names + all_map_names + all_map_types) and current_hero in all_hero_names:
 		db.session.commit()
 
 #questions pages for each hero in all_hero_names
 #which are used to fill database
-@app.route('/<hero_name>-questions', methods=['POST', 'GET'])
-def questions(hero_name):
+@app.route('/<current_hero>-questions', methods=['POST', 'GET'])
+def questions(current_hero):
 	if request.method == 'POST':
 		#get results as strings in format "A_B"
 		#where A is the user selected checkbox (=result_value) and B is the table number it belongs to (=result_table)
 		for result in request.form.getlist('result'):
 			result_value = result.split('_')[0]
 			result_table = all_question_tables[int(result.split('_')[1]) - 1]
-			commitResult(hero_name, result_value, result_table)
+			commitResult(current_hero, result_value, result_table)
 		return 'Submitted successfully'
 	else:
 		#check if url actually contains a hero
-		if hero_name in all_hero_names:
-			return render_template('questions.html', hero_name=hero_name)
+		if current_hero in all_hero_names:
+			return render_template('questions.html', current_hero=current_hero)
 		else:
 			return 'Hero not found.'
 
@@ -106,16 +106,16 @@ def questions(hero_name):
 
 #results pages for each hero in all_hero_names
 #which display contents of database
-@app.route('/<hero_name>-results')
-def answers(hero_name):
+@app.route('/<current_hero>-results')
+def answers(current_hero):
 	#check if url actually contains the name of a hero
-	if hero_name in all_hero_names:
+	if current_hero in all_hero_names:
 		filtered_results = list()
 		for table in all_question_tables:
-			result = db.session.query(table).filter_by(current_hero=hero_name)
+			result = db.session.query(table).filter_by(current_hero=current_hero)
 			result = result.order_by(table.commonness.desc()).limit(5).all()
 			filtered_results += result
-		return render_template('results.html', hero_name=hero_name, filtered_results=filtered_results)
+		return render_template('results.html', current_hero=current_hero, filtered_results=filtered_results)
 	else: 
 		return 'Hero not found.'
 
