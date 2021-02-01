@@ -1,7 +1,13 @@
 
 body {
 	font-family: Teko, sans-serif;
-	font-weight: 100;
+	font-weight: 80;
+	text-transform: uppercase;
+}
+
+.chart {
+	height: 200px; 
+	width: 50%;
 }
 
 ol {

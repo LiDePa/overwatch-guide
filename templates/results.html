@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<header>
+	<h1>OVERWATCH GUIDE</h1>
+</header>
+
+<h2>{{ current_hero }}</h2>
+
+<section id="results_section">
+	<article>
+		<h3>Heroes that {{ current_hero }} counters well:</h3>
+		<div id="chart_container_1" class="chart"></div>
+	</article>
+	<article>
+		<h3>Heroes to avoid:</h3>
+		<div id="chart_container_2" class="chart"></div>
+	</article>
+	<article>
+		<h3>Teammates to collaborate with:</h3>
+		<div id="chart_container_3" class="chart"></div>
+	</article>
+	<article>
+		<h3>Good ultimate combinations:</h3>
+		<div id="chart_container_4" class="chart"></div>
+	</article>
+	<article>
+		<h3>Ultimates that {{ current_hero }} denies easily:</h3>
+		<div id="chart_container_5" class="chart"></div>
+	</article>
+	<article>
+		<h3>Certain similarities with:</h3>
+		<div id="chart_container_6" class="chart"></div>
+	</article>
+	<article>
+		<h3>Map type tendency:</h3>
+		<div id="chart_container_7" class="chart"></div>
+	</article>
+	<article>
+		<h3>{{ current_hero }}s home map:</h3>
+		<div id="chart_container_8" class="chart"></div>
+	</article>
+	<article>
+		<h3>Just don't play {{ current_hero }} on:</h3>
+		<div id="chart_container_9" class="chart"></div>
+	</article>
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+
+	var chart_1 = new CanvasJS.Chart("chart_container_1", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question1' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_1.render();
+
+	var chart_2 = new CanvasJS.Chart("chart_container_2", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question2' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_2.render();
+
+	var chart_3 = new CanvasJS.Chart("chart_container_3", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question3' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_3.render();
+
+	var chart_4 = new CanvasJS.Chart("chart_container_4", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question4' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_4.render();
+
+	var chart_5 = new CanvasJS.Chart("chart_container_5", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question5' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_5.render();
+
+	var chart_6 = new CanvasJS.Chart("chart_container_6", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question6' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_6.render();
+
+	var chart_7 = new CanvasJS.Chart("chart_container_7", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question7' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_7.render();
+
+	var chart_8 = new CanvasJS.Chart("chart_container_8", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question8' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_8.render();
+
+	var chart_9 = new CanvasJS.Chart("chart_container_9", {
+		animationEnabled: true,
+		axisX:{
+			reversed: true,
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 0,
+			labelFormatter: function(){return " ";}
+		},
+		axisY:{
+			title: "Amount of votes [%]",
+			maximum: 100, 
+			gridThickness: 0,
+			tickLength: 0,
+			lineThickness: 1,
+			labelFormatter: function(){return " ";}
+		},
+		data: [{
+			type: "bar",
+			axisYType: "primary",
+			color: "#014D65",
+			dataPoints: [
+				{% for result in common_results %}
+					{% if result.__tablename__ == 'Question9' %}
+						{ 
+							y: {{ result.commonness | tojson }}, 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+						},
+					{% endif %}
+				{% endfor %}
+			]
+		}]
+	});
+	chart_9.render();
+
+</script>
+
+{% endblock %}

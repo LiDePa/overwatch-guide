@@ -7,7 +7,6 @@
 </header>
 
 <h2>{{ current_hero }}</h2>
-
 <div id="img_container"></div>
 <form action="/{{ current_hero }}-questions" method="POST">
 	<div id="question_1">
@@ -26,10 +25,10 @@
 		<label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label>
 	</div>
 	<div id="question_6">
-		<label for="question_6">Is there a map type where {{ current_hero }} is especially good?</label>
+		<label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label>
 	</div>
 	<div id="question_7">
-		<label for="question_7">Is there a map type where {{ current_hero }} is rather bad?</label>
+		<label for="question_7">Is there a map type that suits {{ current_hero }} well?</label>
 	</div>
 	<div id="question_8">
 		<label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label>
@@ -43,7 +42,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-	//are filled by json file on page load
+	//are filled from json file on page load
 	var all_hero_names = []
 	var all_map_names
 

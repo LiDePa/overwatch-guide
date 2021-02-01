@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 
 #get all hero and map names from json files in static folder and fill the according arrays
-
 all_hero_names = []
 all_map_names = []
 all_map_types = []
@@ -42,6 +41,8 @@ class QuestionsBase(db.Model):
 	current_hero = db.Column(db.String(30))
 	selected_result = db.Column(db.String(30))
 	commonness = db.Column(db.Integer, default = 1)
+	def __repr__(self):
+		return '<result %r>' % self.id
 class Question1(QuestionsBase):
 	__tablename__ = 'Question1'
 class Question2(QuestionsBase):
@@ -60,6 +61,7 @@ class Question8(QuestionsBase):
 	__tablename__ = 'Question8'
 class Question9(QuestionsBase):
 	__tablename__ = 'Question9'
+#array with all tables to iterate through
 all_question_tables = [Question1, Question2, Question3, Question4, Question5, Question6, Question7, Question8, Question9]
 
 
@@ -70,30 +72,32 @@ def index():
 
 
 
+#function to analyse and commit the result of the questions page to the database
 def commitResult(current_hero, selected_result, result_table):
 	#if the combination of current_hero and selected_result already exists in result_table, increase its commonness value
-	#######################could be cleaner, too many db queries##########################
-	if db.session.query(db.exists().where( and_( result_table.current_hero==current_hero, result_table.selected_result==selected_result) )).scalar() == True:
-		existing_data = result_table.query.filter( and_( result_table.current_hero==current_hero, result_table.selected_result==selected_result )).first()
+	existing_data = result_table.query \
+		.filter(result_table.current_hero==current_hero) \
+		.filter(result_table.selected_result==selected_result) \
+		.first()
+	if existing_data != None:
 		existing_data.commonness += 1
+	#otherwise create a new dataset
 	else:
-		new_data = result_table(current_hero = current_hero, selected_result = selected_result)
+		new_data = result_table(current_hero=current_hero, selected_result=selected_result)
 		db.session.add(new_data)
 	#check if result is valid before comitting
 	if selected_result in (all_hero_names + all_map_names + all_map_types) and current_hero in all_hero_names:
 		db.session.commit()
 
-#questions pages for each hero in all_hero_names
+#QUESTIONS PAGE for each hero in all_hero_names
 #which are used to fill database
 @app.route('/<current_hero>-questions', methods=['POST', 'GET'])
 def questions(current_hero):
 	if request.method == 'POST':
 		#get results as strings in format "A_B"
-		#where A is the user selected checkbox (=selected_result) and B is the table number it belongs to (=result_table)
+		#where A is the user selected checkbox (selected_result) and B is the table number it belongs to (result_table)
 		for result in request.form.getlist('result'):
-			selected_result = result.split('_')[0]
-			result_table = all_question_tables[int(result.split('_')[1]) - 1]
-			commitResult(current_hero, selected_result, result_table)
+			commitResult(current_hero, result.split('_')[0], all_question_tables[int(result.split('_')[1]) - 1])
 		return 'Submitted successfully'
 	else:
 		#check if url actually contains a hero
@@ -104,18 +108,30 @@ def questions(current_hero):
 
 
 
-#results pages for each hero in all_hero_names
+#function to calculate the sum of all datasets and replace the commonness value of each result with a percentage
+def commonnessToPercentage(data):
+	sum = 0
+	for i in data:
+		sum += i.commonness
+	for i in data:
+		i.commonness = round(100 * i.commonness / sum, 1) 	
+	return data
+
+#RESULT PAGE for each hero in all_hero_names
 #which display contents of database
 @app.route('/<current_hero>-results')
 def answers(current_hero):
 	#check if url actually contains the name of a hero
 	if current_hero in all_hero_names:
-		filtered_results = list()
+		#search for datasets of current hero in database and order them by commonness
+		common_results = list()
 		for table in all_question_tables:
-			result = db.session.query(table).filter_by(current_hero=current_hero)
-			result = result.order_by(table.commonness.desc()).limit(5).all()
-			filtered_results += result
-		return render_template('results.html', current_hero=current_hero, filtered_results=filtered_results)
+			data = db.session.query(table) \
+				.filter_by(current_hero=current_hero) \
+				.order_by(table.commonness.desc()) \
+				.all()
+			common_results += commonnessToPercentage(data)[0:4]
+		return render_template('results.html', current_hero=current_hero, common_results=common_results)
 	else: 
 		return 'Hero not found.'
 
