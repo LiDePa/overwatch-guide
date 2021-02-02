@@ -69,8 +69,12 @@
 		//fill all_hero_names array
 		$.getJSON("{{ url_for('static', filename='all_hero_names.json') }}", function(data){
 			all_hero_names = data;
-			//initially link to questions-pages
-			fillHeroContainer('-questions');
+			//and use it to append buttons depending on url parameter
+			if (window.location.search == '?r') {
+				fillHeroContainer('-results');
+			} else {
+				fillHeroContainer('-questions');
+			}
 		});
 	});
 

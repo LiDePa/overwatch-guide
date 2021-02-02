@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template, redirect, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, func
 import json, os, sys
@@ -98,13 +98,15 @@ def questions(current_hero):
 		#where A is the user selected checkbox (selected_result) and B is the table number it belongs to (result_table)
 		for result in request.form.getlist('result'):
 			commitResult(current_hero, result.split('_')[0], all_question_tables[int(result.split('_')[1]) - 1])
-		return 'Submitted successfully'
+		flash('Thank you for adding your knowledge to Rock-Pharah-Scissors! Feel free to contribute to other heroes as well:')
+		return redirect(url_for('index'))
 	else:
 		#check if url actually contains a hero
 		if current_hero in all_hero_names:
 			return render_template('questions.html', current_hero=current_hero)
 		else:
-			return 'Hero not found.'
+			flash('Hero not found.')
+			return redirect(url_for('index'))
 
 
 
@@ -133,9 +135,12 @@ def answers(current_hero):
 			common_results += commonnessToPercentage(data)[0:4]
 		return render_template('results.html', current_hero=current_hero, common_results=common_results)
 	else: 
-		return 'Hero not found.'
+		flash('Hero not found.')
+		return redirect(url_for('index') + '?r')
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.secret_key = 'super secret key'
+	app.config['SESSION_TYPE'] = 'filesystem'
+	app.run(debug=True)
