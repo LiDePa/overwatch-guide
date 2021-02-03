@@ -3,10 +3,12 @@
 {% block body %}
 
 <header>
-	<h1>OVERWATCH GUIDE</h1>
+	<h1>Rock<br>Pharah<br>Scissors</h1>
 </header>
 
 <h2>{{ current_hero }}</h2>
+
+<div id="vote_counter">{{ vote_count }} Votes</div>
 
 <section id="results_section">
 	<article>
@@ -22,11 +24,11 @@
 		<div id="chart_container_3" class="chart"></div>
 	</article>
 	<article>
-		<h3>Good ultimate combinations:</h3>
+		<h3>Ultimate is combined well with:</h3>
 		<div id="chart_container_4" class="chart"></div>
 	</article>
 	<article>
-		<h3>Ultimates that {{ current_hero }} denies easily:</h3>
+		<h3>Heroes who's Ultimate {{ current_hero }} denies easily:</h3>
 		<div id="chart_container_5" class="chart"></div>
 	</article>
 	<article>
@@ -34,15 +36,15 @@
 		<div id="chart_container_6" class="chart"></div>
 	</article>
 	<article>
-		<h3>Map type tendency:</h3>
+		<h3>Map type tendency?</h3>
 		<div id="chart_container_7" class="chart"></div>
 	</article>
 	<article>
-		<h3>{{ current_hero }}s home map:</h3>
+		<h3>Has a home map?</h3>
 		<div id="chart_container_8" class="chart"></div>
 	</article>
 	<article>
-		<h3>Just don't play {{ current_hero }} on:</h3>
+		<h3>Map to avoid playing {{ current_hero }} on?</h3>
 		<div id="chart_container_9" class="chart"></div>
 	</article>
 </section>
