@@ -8,13 +8,16 @@
 		<p>Pharah</p>
 		<p>Scissors</p>
 	</h1>
+	<nav>
+		<button class="back_button">
+			<a href="{{ url_for('index') }}?r">Select another hero</a>
+		</button>
+	</nav>
 </header>
 
-<h2>{{ current_hero }}</h2>
-
-<div id="vote_counter">{{ vote_count }} Votes</div>
-
 <section id="results_section">
+	<h2>{{ current_hero }}</h2>
+	<div id="vote_counter">{{ vote_count }} Votes</div>
 	<article>
 		<h3>Heroes that {{ current_hero }} counters well</h3>
 		<div id="chart_container_1" class="chart"></div>
@@ -32,7 +35,7 @@
 		<div id="chart_container_4" class="chart"></div>
 	</article>
 	<article>
-		<h3>Heroes who's Ultimate {{ current_hero }} denies easily</h3>
+		<h3>Heroes who's Ultimate is denied easily</h3>
 		<div id="chart_container_5" class="chart"></div>
 	</article>
 	<article>
@@ -53,42 +56,46 @@
 	</article>
 </section>
 
-<button>
-	<a href="{{ url_for('index') }}?r">Select another hero</a>
-</button>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
 
+document.fonts.ready.then(function() {
+
 	var chart_1 = new CanvasJS.Chart("chart_container_1", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
 			tickLength: 0,
+			lineColor: "white",
 			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question1' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -98,7 +105,9 @@
 	chart_1.render();
 
 	var chart_2 = new CanvasJS.Chart("chart_container_2", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -107,23 +116,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question2' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -133,7 +145,9 @@
 	chart_2.render();
 
 	var chart_3 = new CanvasJS.Chart("chart_container_3", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -142,23 +156,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question3' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -168,7 +185,9 @@
 	chart_3.render();
 
 	var chart_4 = new CanvasJS.Chart("chart_container_4", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -177,23 +196,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question4' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -203,7 +225,9 @@
 	chart_4.render();
 
 	var chart_5 = new CanvasJS.Chart("chart_container_5", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -212,23 +236,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question5' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -238,7 +265,9 @@
 	chart_5.render();
 
 	var chart_6 = new CanvasJS.Chart("chart_container_6", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -247,23 +276,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question6' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -273,7 +305,9 @@
 	chart_6.render();
 
 	var chart_7 = new CanvasJS.Chart("chart_container_7", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -282,23 +316,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question7' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -308,7 +345,9 @@
 	chart_7.render();
 
 	var chart_8 = new CanvasJS.Chart("chart_container_8", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -317,23 +356,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question8' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -343,7 +385,9 @@
 	chart_8.render();
 
 	var chart_9 = new CanvasJS.Chart("chart_container_9", {
+		backgroundColor: "#2b3145",
 		animationEnabled: true,
+		interactivityEnabled: false, 
 		axisX:{
 			reversed: true,
 			gridThickness: 0,
@@ -352,23 +396,26 @@
 			labelFormatter: function(){return " ";}
 		},
 		axisY:{
-			title: "Amount of votes [%]",
 			maximum: 100, 
 			gridThickness: 0,
 			tickLength: 0,
-			lineThickness: 1,
+			lineColor: "white",
+			lineThickness: 0,
 			labelFormatter: function(){return " ";}
 		},
 		data: [{
 			type: "bar",
 			axisYType: "primary",
-			color: "#014D65",
+			color: "orange",
+			indexLabelFontSize: 24,
+			indexLabelFontFamily: "Teko",
+			indexLabelFontColor: "white",
 			dataPoints: [
 				{% for result in common_results %}
 					{% if result.__tablename__ == 'Question9' %}
 						{ 
 							y: {{ result.commonness | tojson }}, 
-							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} 
+							indexLabel: {{ result.selected_result | tojson  }} + ": " + {{ result.commonness | tojson }} + "%"
 						},
 					{% endif %}
 				{% endfor %}
@@ -376,6 +423,8 @@
 		}]
 	});
 	chart_9.render();
+
+});
 
 </script>
 

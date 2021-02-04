@@ -1,3 +1,9 @@
+/* GENERAL */
+
+
+
+@import url(https://fonts.googleapis.com/css2?family=Teko);
+
 button:hover, nav:hover {
 	cursor: pointer;
 }
@@ -14,7 +20,6 @@ a {
 
 body {
 	overflow-x: hidden;
-	opacity: 0;
 	background-color: rgb(26, 26, 26);
 	color: white;
 	font-family: Teko, sans-serif;
@@ -26,8 +31,20 @@ body {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	animation: waitforFont .01s forwards;
-	animation-delay: .4s;
+}
+
+
+
+#messages {
+	width: 100vw;
+	background: orange;
+}
+#messages p {
+	padding-top: 1.2rem;
+	padding-bottom: 1rem;
+	text-align: center;
+	font-size: 22pt;
+	color:rgb(26, 26, 26);
 }
 
 
@@ -36,6 +53,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-bottom: 2rem;
 }
 header h1 {
 	margin: 4rem 0 5rem 0;
@@ -45,26 +63,33 @@ header h1 {
 header h1 p {
 	margin-bottom: -1rem;
 }
-#startpage_header h1 p {
-	opacity: 0;
-	transform: translate(-300px, 300px);
-	animation: fadeInHeader .25s forwards linear;
-}
 header h1 p:nth-child(1) {
 	margin-left: 20px;
-}
-#startpage_header h1 p:nth-child(1) {
-	animation-delay: .4s;
 }
 header h1 p:nth-child(2) {
 	margin-left: 10px;
 	color: orange;
 }
+
+
+
+
+
+
+/* STARTPAGE */
+
+
+
+#startpage_header h1 p {
+	opacity: 0;
+	transform: translate(-300px, 300px);
+	animation: fadeInHeader .25s forwards linear;
+}
 #startpage_header h1 p:nth-child(2) {
-	animation-delay: .6s;
+	animation-delay: .12s;
 }
 #startpage_header h1 p:nth-child(3) {
-	animation-delay: .8s;
+	animation-delay: .24s;
 }
 nav {
 	opacity: 0;
@@ -72,8 +97,9 @@ nav {
 	color: rgb(26, 26, 26);
 	width: 100vw;
 	display: flex;
+	justify-content: center;
 	animation: fadeInButton .3s forwards linear;
-	animation-delay: 1.3s;
+	animation-delay: .5s;
 }
 nav button {
 	font-size: 22pt;
@@ -82,18 +108,32 @@ nav button {
 	background-color: orange;
 	font-style: normal;
 	margin: 0 1vw 0 1vw;
-	width: 48vw;
+	width: 40vw;
 	height: 3rem;
 	text-align: center;
 	text-transform: uppercase;
 }
-
 nav button:hover {
 	background-color: rgb(112, 82, 26);
 	color: white;
 	transform: scale(1.05);
 	transition: ease-in;
 }
+.back_button {
+	background-color: white;
+}
+.back_button:hover{
+	background-color: white;
+}
+.back_button a {
+	display: inline-block;     
+	position: relative;    
+	z-index: 1;     
+	padding: 1em 10em 1em 10em;     
+	margin: -1em -10em -1em -10em; 
+	color:rgb(26, 26, 26);
+}
+
 
 
 
@@ -103,6 +143,7 @@ nav button:hover {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
+	padding-bottom: 2rem;
 }
 #hero_container h2 {
 	margin: 2rem 0 1rem 0;
@@ -124,46 +165,97 @@ nav button:hover {
 }
 #hero_container button:hover {
 	background-color: rgb(92, 92, 92);
+	margin: 0 .5rem 0 .5rem;
 }
 #hero_container button a:hover {
-	color: orange;
+	color: #ffa500;
 	transform: scale(1.2);
-	transition: ease-in;
 }
 
 
 
-.chart {
-	height: 200px; 
-	width: 50%;
-}
 
-ol {
-    overflow: scroll;
-    height: 500px;
-}
+
+/* QUESTIONS PAGE */
 
 
 
-#messages {
+#questions_section {
+	padding-top: 2rem;
 	width: 100vw;
-	background: orange;
-}
-#messages p {
-	padding-top: 1.2rem;
-	padding-bottom: 1rem;
+	background-color: #29322c;
 	text-align: center;
-	font-size: 22pt;
-	color:rgb(26, 26, 26);
+}
+#questions_section h2 {
+	font-size: 30pt;
+}
+form article {
+	width: 100%;
+	justify-content: flex-end;
+	margin: 2rem 4rem 2rem 2rem;
+	border: 1px solid white;
+}
+form article label {
+	text-transform: none;
+	width: 10%;
+}
+form article div {
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+	width: 80%;
+    overflow-x: hidden;
 }
 
 
 
 
 
-@keyframes waitforFont {
-	100% {opacity: 1;}
+/* RESULTS PAGE */
+
+
+
+#results_section {
+	padding-top: 2rem;
+	width: 100vw;
+	background-color: #2b3145;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+	justify-content: center;
 }
+#results_section h2 {
+	width: 100%;
+	text-align: center;
+	font-size: 30pt;
+}
+#vote_counter {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 2rem;
+}
+#results_section article {
+	width: 30%;
+	min-width: 17rem;
+	margin: 0 3rem 6rem 0
+}
+#results_section article h3 {
+	padding-left: .5rem;
+	text-transform: none;
+}
+.chart {
+	height: 200px;
+	width: 100%;
+}
+
+
+
+
+
+/* ANIMATIONS */
+
+
+
 @keyframes fadeInHeader {
 	100% { 
 		opacity: 1;
@@ -185,8 +277,13 @@ ol {
 
 
 
+
+
+/* MOBILE SUPPORT */
+
+
 @media only screen and (max-width: 600px) {
 	nav button {
-		font-size: 6vw;
+		font-size: 4vw;
 	}
 }

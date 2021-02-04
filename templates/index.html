@@ -11,8 +11,8 @@
 
 	<!--select whether hero buttons are linking to questions or answers page-->
 	<nav>
-		<button id="nav_questions">Can I learn from you?</button>
-		<button id="nav_results">How can I help you?</button>
+		<button id="nav_questions">Add your Knowledge!</button>
+		<button id="nav_results">View Results</button>
 	</nav>
 </header>
 
@@ -36,12 +36,14 @@
 	//url_destination changes with nav selection
 	function fillHeroContainer(url_destination){
 
-		//show specific headline
+		//show specific headline and background-color
 		$('#hero_container h2').remove();
 		if (url_destination == '-questions'){
-			$('#hero_container').append(headline_questions)
+			$('#hero_container').append(headline_questions);
+			$('#hero_container').css("background-color", "#29322c");
 		} else if (url_destination == '-results'){
-			$('#hero_container').append(headline_results)
+			$('#hero_container').append(headline_results);
+			$('#hero_container').css("background-color", "#2b3145");
 		}
 
 		//delete buttons if they already exist
