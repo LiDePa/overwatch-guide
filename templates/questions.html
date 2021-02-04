@@ -3,10 +3,14 @@
 {% block body %}
 
 <header>
-	<h1>Rock<br>Pharah<br>Scissors</h1>
+	<h1>
+		<p>Rock</p>
+		<p>Pharah</p>
+		<p>Scissors</p>
+	</h1>
 </header>
 
-<h2>{{ current_hero }}</h2>
+<h2 id="current_hero">{{ current_hero }}</h2>
 <form action="/{{ current_hero }}-questions" method="POST">
 	<div id="question_1">
 		<label for="question_1">Who is {{ current_hero }} especially good against?</label>

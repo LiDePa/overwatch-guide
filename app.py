@@ -127,8 +127,8 @@ def questions(current_hero):
 		#where A is the user selected checkbox (selected_result) and B is the question number it belongs to (result_table)
 		for result in request.form.getlist('result'):
 			commitResult(current_hero, result.split('_')[0], all_question_tables[int(result.split('_')[1]) - 1])
-		flash('Thank you for adding your knowledge to Rock-Pharah-Scissors! Feel free to contribute to other heroes as well:')
-		return redirect(url_for('index'))
+		flash('Thank you for adding your knowledge to Rock-Pharah-Scissors! Feel free to contribute to other heroes as well.')
+		return redirect(url_for('index') + '?q')
 	#if user requests data
 	else:
 		#check if url actually contains a hero

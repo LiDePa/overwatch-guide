@@ -2,12 +2,16 @@
 
 {% block body %}
 
-<header>
-	<h1>Rock<br>Pharah<br>Scissors</h1>
+<header id="startpage_header">
+	<h1>
+		<p>Rock</p>
+		<p>Pharah</p>
+		<p>Scissors</p>
+	</h1>
 
 	<!--select whether hero buttons are linking to questions or answers page-->
 	<nav>
-		<button id="nav_questions">What can I learn from you?</button>
+		<button id="nav_questions">Can I learn from you?</button>
 		<button id="nav_results">How can I help you?</button>
 	</nav>
 </header>
@@ -20,8 +24,8 @@
 <script>
 
 	//define headlines
-	var headline_questions = '<h2>Select a hero you play a lot:</h2>'
-	var headline_results = '<h2>Select a hero you want to play more:</h2>'
+	var headline_questions = '<h2>Select a hero you play a lot</h2>'
+	var headline_results = '<h2>View responses for</h2>'
 
 	//is filled by JSON file on page load
 	var all_hero_names = []
@@ -46,7 +50,7 @@
 		var i;
 		for (i = 0; i < all_hero_names.length; i++) {
 			$('#hero_container').append(
-				'<button><a href="/' + all_hero_names[i] + url_destination + '">'
+				'<button style="animation-delay:' + (i/50) + 's"><a href="/' + all_hero_names[i] + url_destination + '">'
 				+ all_hero_names[i] + '</a></button>'
 			)
 		};
@@ -72,7 +76,7 @@
 			//and use it to append buttons depending on url parameter
 			if (window.location.search == '?r') {
 				fillHeroContainer('-results');
-			} else {
+			} else if (window.location.search == '?q') {
 				fillHeroContainer('-questions');
 			}
 		});
