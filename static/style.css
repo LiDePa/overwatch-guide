@@ -4,10 +4,10 @@
 
 @import url(https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap);
 
-button:hover, nav:hover {
+button:hover, nav:hover, #submit, .questions_hl a {
 	cursor: pointer;
 }
-a {
+button a {
 	display: inline-block;     
 	position: relative;    
 	z-index: 1;     
@@ -18,7 +18,9 @@ a {
 
 
 
+
 body {
+	height: 100vh;
 	overflow-x: hidden;
 	background-color: rgb(26, 26, 26);
 	color: white;
@@ -101,7 +103,7 @@ nav {
 	animation: fadeInButton .3s forwards linear;
 	animation-delay: .5s;
 }
-nav button {
+nav button, #submit {
 	font-size: 22pt;
 	padding-top: 2px;
 	color: white;
@@ -113,7 +115,7 @@ nav button {
 	text-align: center;
 	text-transform: uppercase;
 }
-nav button:hover {
+nav button:hover, #submit:hover {
 	background-color: rgb(112, 82, 26);
 	color: white;
 	transform: scale(1.05);
@@ -133,7 +135,14 @@ nav button:hover {
 	margin: -1em -10em -1em -10em; 
 	color:rgb(26, 26, 26);
 }
-
+#submit {
+	margin: 2rem 0 2rem 0;
+	font-family: Teko, sans-serif;
+	transform: skewX(-13deg);
+}
+#submit:hover {
+	transform: skewX(-13deg);
+}
 
 
 
@@ -187,36 +196,69 @@ nav button:hover {
 	text-align: center;
 }
 #questions_section h2 {
-	font-size: 30pt;
+	font-size: 60pt;
+	margin-bottom: 2rem;
+	color: orange;
 }
-form {
-	width: 100%;
+#questions_container {
+	width: 100vw;
 	display: flex;
-	justify-content: center;
 	flex-flow: row;
 	flex-wrap: nowrap;
 	overflow-x: scroll;
 }
 form article {
-	width: 100%;
-	border: 1px solid white;
+	border-right: 1px solid white;
 	padding: 2rem;
 }
-form article label {
+.question_hl {
+	display: flex;
+	flex-direction: row;
+}
+.question_hl a {
+	color: orange;
+	font-size: 60pt;
+	font-style: normal;
+	font-family: sans;
+	font-weight: 100;
+	display: block;
+}
+.question_hl a:hover {
+	color: white;
+	transform: scale(1.2);
+}
+.question_hl label {
+	text-align: left;
+	font-size: 28pt;
 	font-style: normal;
 	text-transform: none;
 }
-form article div {
+#questions_container article div {
 	width: 60vw;
+	font-size: 22pt;
 	margin-top: 1.5rem;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
 }
-form article div p {
-	margin-top: 1rem;
+#questions_container article span {	
+	font-size: 22pt;
+	display: inline-block;
+	margin: .5rem .2rem 0 0;
+}
+#questions_container article p {
+	margin-top: 2rem;	
+	font-size: 26pt;
+}
+#questions_container article span input {	
+	margin: .5rem .2rem 0 1.5rem;
+}
+.map_question p {
+	width: 100%;
+	margin-top: 2rem;
 	font-size: 22pt;
 }
-form article div input {
-	margin: .3rem .5rem 0 1.5rem;
-}
+
 
 
 
@@ -238,7 +280,8 @@ form article div input {
 #results_section h2 {
 	width: 100%;
 	text-align: center;
-	font-size: 30pt;
+	font-size: 32pt;
+	color: orange;
 }
 #vote_counter {
 	width: 100%;

@@ -18,43 +18,46 @@
 <section id="questions_section">
 <h2 id="current_hero">{{ current_hero }}</h2>
 <form action="/{{ current_hero }}-questions" method="POST">
-	<article>
-		<label for="question_1">Who is {{ current_hero }} especially good against?</label>
+
+<div id="questions_container">
+	<article id="question_1">
+		<span class="question_hl"><label for="question_1">Who is {{ current_hero }} especially good against?</label><a href="#question_2">></a></span>
 		<div id="question_1"></div>
 	</article>
-	<article>
-		<label for="question_2">Who scares you when playing {{ current_hero }}?</label>
+	<article id="question_2">
+		<span class="question_hl"><label for="question_2">Who scares you when playing {{ current_hero }}?</label><a href="#question_3">></a></span>
 		<div id="question_2"></div>
 	</article>
-	<article>
-		<label for="question_3">Who is an especially good Teammate for {{ current_hero }}?</label>
+	<article id="question_3">
+		<span class="question_hl"><label for="question_3">Who is an especially good Teammate for {{ current_hero }}?</label><a href="#question_4">></a></span>
 		<div id="question_3"></div>
 	</article>
-	<article>
-		<label for="question_4">Who's ultimate should always be combined with {{ current_hero }}'s ultimate?</label>
+	<article id="question_4">
+		<span class="question_hl"><label for="question_4">Who's ultimate should always be combined with {{ current_hero }}'s ultimate?</label><a href="#question_5">></a></span>
 		<div id="question_4"></div>
 	</article>
-	<article>
-		<label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label>
+	<article id="question_5">
+		<span class="question_hl"><label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label><a href="#question_6">></a></span>
 		<div id="question_5"></div>
 	</article>
-	<article>
-		<label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label>
+	<article id="question_6">
+		<span class="question_hl"><label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label><a href="#question_7">></a></span>
 		<div id="question_6"></div>
 	</article>
-	<article>
-		<label for="question_7">Is there a map type that suits {{ current_hero }} especially well?</label>
+	<article id="question_7">
+		<span class="question_hl"><label for="question_7">Is there a map type that suits {{ current_hero }} especially well?</label><a href="#question_8">></a></span>
 		<div id="question_7"></div>
 	</article>
-	<article>
-		<label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label>
+	<article id="question_8">
+		<span class="question_hl"><label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label><a href="#question_9">></a></span>
 		<div id="question_8"></div>
 	</article>
-	<article>
-		<label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label>
+	<article id="question_9">
+		<span class="question_hl"><label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label></span>
 		<div id="question_9"></div>
-	</article>	
-	<input type="submit" value="Submit">
+	</article>
+</div>
+<input id="submit" type="submit" value="Submit">
 </form>
 </section>
 
@@ -70,12 +73,12 @@
 	//function to append a checkbox for every hero to the according question div
 	function fillWithHeroCeckboxes(question_id){
 		$('#' + question_id).append(
-			'<input type="checkbox" name="result" value="Nobody'+ question_id.replace('question','') + '">Nobody</input>'
+			'<span><input type="checkbox" name="result" value="Nobody'+ question_id.replace('question','') + '">Nobody</span>'
 		);
 		for (i = 0; i < all_hero_names.length; i++) {
 			if (all_hero_names[i] != {{ current_hero | tojson }}) {
 				$('#' + question_id).append(
-					'<input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</input>'
+					'<span><input type="checkbox" name="result" value="' + all_hero_names[i] + question_id.replace('question','') + '">' + all_hero_names[i] + '</span>'
 				)};
 		};
 	};
@@ -85,18 +88,18 @@
 	//function to append a checkbox for every map to the according question div
 	function fillWithMapCheckboxes(question_id){
 		$('#' + question_id).append(
-			'<input type="checkbox" name="result" value="No' + question_id.replace('question','') + '">No</input>'
+			'<span><input type="checkbox" name="result" value="No' + question_id.replace('question','') + '">No</input></span>'
 		);
 		$.each(all_map_names, function(i){
 			//if current map is another type than the map before, append a map type headline first
 			if (i == 0 || all_map_names[i].map_type != all_map_names[i-1].map_type) {
 				$('#' + question_id).append(
 					'<p>' + all_map_names[i].map_type + '</p>' + 
-					'<input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input>'
+					'<span><input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input></span>'
 				)
 			} else {
 				$('#' + question_id).append(
-					'<input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input>'
+					'<span><input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input></span>'
 				)
 			};
 		});
@@ -107,12 +110,12 @@
 	//function to append a checkbox for every map type to the according question div
 	function fillWithMapTypeCheckboxes(question_id){
 		$('#' + question_id).append(
-			'<input type="checkbox" name="result" value="No' + question_id.replace('question','') + '">No</input>'
+			'<span><input type="checkbox" name="result" value="No' + question_id.replace('question','') + '">No</input></span>'
 		);
 		$.each(all_map_names, function(i){
 			if (i == 0 || all_map_names[i].map_type != all_map_names[i-1].map_type) {
 				$('#' + question_id).append(
-					'<input type="checkbox" name="result" value="' + all_map_names[i].map_type + question_id.replace('question','') + '">' + all_map_names[i].map_type + '</input>'
+					'<span><input type="checkbox" name="result" value="' + all_map_names[i].map_type + question_id.replace('question','') + '">' + all_map_names[i].map_type + '</input></span>'
 				)
 			}
 		});
