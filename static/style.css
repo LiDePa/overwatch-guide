@@ -2,7 +2,7 @@
 
 
 
-@import url(https://fonts.googleapis.com/css2?family=Teko);
+@import url(https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap);
 
 button:hover, nav:hover {
 	cursor: pointer;
@@ -189,22 +189,33 @@ nav button:hover {
 #questions_section h2 {
 	font-size: 30pt;
 }
+form {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-flow: row;
+	flex-wrap: nowrap;
+	overflow-x: scroll;
+}
 form article {
 	width: 100%;
-	justify-content: flex-end;
-	margin: 2rem 4rem 2rem 2rem;
 	border: 1px solid white;
+	padding: 2rem;
 }
 form article label {
+	font-style: normal;
 	text-transform: none;
-	width: 10%;
 }
 form article div {
-	display: flex;
-	flex-flow: row;
-	flex-wrap: wrap;
-	width: 80%;
-    overflow-x: hidden;
+	width: 60vw;
+	margin-top: 1.5rem;
+}
+form article div p {
+	margin-top: 1rem;
+	font-size: 22pt;
+}
+form article div input {
+	margin: .3rem .5rem 0 1.5rem;
 }
 
 
@@ -241,6 +252,7 @@ form article div {
 }
 #results_section article h3 {
 	padding-left: .5rem;
+	font-style: normal;
 	text-transform: none;
 }
 .chart {

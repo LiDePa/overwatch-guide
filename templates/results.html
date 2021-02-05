@@ -63,6 +63,7 @@
 
 document.fonts.ready.then(function() {
 
+	
 	var chart_1 = new CanvasJS.Chart("chart_container_1", {
 		backgroundColor: "#2b3145",
 		animationEnabled: true,
@@ -426,6 +427,14 @@ document.fonts.ready.then(function() {
 
 });
 
+
+setTimeout(function () {
+	alert('Reloading Page');
+	location.reload(true);
+}, 1000);
+
 </script>
 
 {% endblock %}
+<script>
+</script>

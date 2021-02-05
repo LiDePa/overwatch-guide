@@ -16,46 +16,46 @@
 </header>
 
 <section id="questions_section">
-	<h2>{{ current_hero }}</h2>
-	<form action="/{{ current_hero }}-questions" method="POST">
-		<article>
-			<label for="question_1">Who is {{ current_hero }} especially good against?</label>
-			<div id="question_1"></div>
-		</article>
-		<article>
-			<label for="question_2">Who scares you when playing {{ current_hero }}?</label>
-			<div id="question_2"></div>
-		</article>
-		<article>
-			<label for="question_3">Who is an especially good Teammate for {{ current_hero }}?</label>
-			<div id="question_3"></div>
-		</article>
-		<article>
-			<label for="question_4">Who's ultimate should always be combined with {{ current_hero }}'s ultimate?</label>
-			<div id="question_4"></div>
-		</article>
-		<article>
-			<label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label>
-			<div id="question_5"></div>
-		</article>
-		<article>
-			<label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label>
-			<div id="question_6"></div>
-		</article>
-		<article>
-			<label for="question_7">Is there a map type that suits {{ current_hero }} especially well?</label>
-			<div id="question_7"></div>
-		</article>
-		<article>
-			<label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label>
-			<div id="question_8"></div>
-		</article>
-		<article>
-			<label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label>
-			<div id="question_9"></div>
-		</article>
-		<input type="submit" value="Submit">
-	</form>
+<h2 id="current_hero">{{ current_hero }}</h2>
+<form action="/{{ current_hero }}-questions" method="POST">
+	<article>
+		<label for="question_1">Who is {{ current_hero }} especially good against?</label>
+		<div id="question_1"></div>
+	</article>
+	<article>
+		<label for="question_2">Who scares you when playing {{ current_hero }}?</label>
+		<div id="question_2"></div>
+	</article>
+	<article>
+		<label for="question_3">Who is an especially good Teammate for {{ current_hero }}?</label>
+		<div id="question_3"></div>
+	</article>
+	<article>
+		<label for="question_4">Who's ultimate should always be combined with {{ current_hero }}'s ultimate?</label>
+		<div id="question_4"></div>
+	</article>
+	<article>
+		<label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label>
+		<div id="question_5"></div>
+	</article>
+	<article>
+		<label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label>
+		<div id="question_6"></div>
+	</article>
+	<article>
+		<label for="question_7">Is there a map type that suits {{ current_hero }} especially well?</label>
+		<div id="question_7"></div>
+	</article>
+	<article>
+		<label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label>
+		<div id="question_8"></div>
+	</article>
+	<article>
+		<label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label>
+		<div id="question_9"></div>
+	</article>	
+	<input type="submit" value="Submit">
+</form>
 </section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -91,7 +91,7 @@
 			//if current map is another type than the map before, append a map type headline first
 			if (i == 0 || all_map_names[i].map_type != all_map_names[i-1].map_type) {
 				$('#' + question_id).append(
-					'<span>' + all_map_names[i].map_type + ':</span>' + 
+					'<p>' + all_map_names[i].map_type + '</p>' + 
 					'<input type="checkbox" name="result" value="' + all_map_names[i].map_name + question_id.replace('question','') + '">' + all_map_names[i].map_name + '</input>'
 				)
 			} else {

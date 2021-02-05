@@ -71,6 +71,7 @@ all_question_tables = [Question1, Question2, Question3, Question4, Question5, Qu
 
 
 
+#function to increase the vote_counter value of the according hero in database
 def countUpVotes(current_hero):
 	existing_data = VoteCounter.query \
 		.filter(VoteCounter.current_hero==current_hero) \
@@ -91,12 +92,12 @@ def commitResult(current_hero, selected_result, result_table):
 		.first()
 	if existing_data != None:
 		existing_data.commonness += 1
-	#otherwise create a new dataset
+	#otherwise create a new dataset	
 	else:
 		new_data = result_table(current_hero=current_hero, selected_result=selected_result)
 		db.session.add(new_data)
 	#check if result is valid before comitting
-	if selected_result in (all_hero_names + all_map_names + all_map_types) and current_hero in all_hero_names:
+	if selected_result in (all_hero_names + all_map_names + all_map_types + list(['No','Nobody'])) and current_hero in all_hero_names:
 		db.session.commit()
 
 #function to calculate the sum of all datasets and replace the commonness value of each result with a percentage
@@ -124,12 +125,13 @@ def questions(current_hero):
 		#count up the according vote counter
 		countUpVotes(current_hero)
 		#get results as an array of strings in format "A_B"
-		#where A is the user selected checkbox (selected_result) and B is the question number it belongs to (result_table)
+		#where A is the user selected checkbox (selected_result) 
+		#and B is the question number it belongs to (result_table)
 		for result in request.form.getlist('result'):
 			commitResult(current_hero, result.split('_')[0], all_question_tables[int(result.split('_')[1]) - 1])
 		flash('Thank you for adding your knowledge to Rock-Pharah-Scissors! '
 			  'Feel free to contribute to other heroes as well.')
-		return redirect(url_for('index') + '?q')
+		return redirect(url_for('index') + '?q')	 
 	#if user requests data
 	else:
 		#check if url actually contains a hero
@@ -137,7 +139,7 @@ def questions(current_hero):
 			return render_template('questions.html', current_hero=current_hero)
 		else:
 			flash('Hero not found.')
-			return redirect(url_for('index'))
+			return redirect(url_for('index' + '?q'))
 
 #result page for each hero in all_hero_names
 #displays contents of database
@@ -160,7 +162,6 @@ def results(current_hero):
 		return render_template('results.html', current_hero=current_hero, common_results=common_results, vote_count=vote_count)
 	else: 
 		flash('Hero not found.')
-		#redirect to index with result buttons instead of question buttons
 		return redirect(url_for('index') + '?r')
 
 
