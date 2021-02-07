@@ -24,8 +24,8 @@
 <script>
 
 	//define headlines
-	var headline_questions = '<h2>Select a hero you play a lot</h2>'
-	var headline_results = '<h2>View responses for</h2>'
+	var headline_questions = '<h2>Select a hero you play a lot!</h2>'
+	var headline_results = '<h2>Who do you want to play more?</h2>'
 
 	//is filled by JSON file on page load
 	var all_hero_names = []
@@ -52,7 +52,7 @@
 		var i;
 		for (i = 0; i < all_hero_names.length; i++) {
 			$('#hero_container').append(
-				'<button style="animation-delay:' + (i/50) + 's"><a href="/' + all_hero_names[i] + url_destination + '">'
+				'<button style="animation-delay:' + (i/50) + 's"><a href="/' + all_hero_names[i] + url_destination + '#questions_section">'
 				+ all_hero_names[i] + '</a></button>'
 			)
 		};

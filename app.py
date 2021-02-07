@@ -6,6 +6,8 @@ import json, os, sys
 
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'wurstbrotmitsenf'
 
 
 
@@ -139,7 +141,7 @@ def questions(current_hero):
 			return render_template('questions.html', current_hero=current_hero)
 		else:
 			flash('Hero not found.')
-			return redirect(url_for('index' + '?q'))
+			return redirect(url_for('index') + '?q')
 
 #result page for each hero in all_hero_names
 #displays contents of database
@@ -167,6 +169,4 @@ def results(current_hero):
 
 
 if __name__ == '__main__':
-	app.secret_key = 'vrwtchgd'
-	app.config['SESSION_TYPE'] = 'filesystem'
 	app.run(debug=True)

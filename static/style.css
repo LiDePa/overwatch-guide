@@ -4,7 +4,7 @@
 
 @import url(https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap);
 
-button:hover, nav:hover, #submit, .questions_hl a {
+button:hover, nav:hover, .big_button:hover {
 	cursor: pointer;
 }
 button a {
@@ -15,12 +15,18 @@ button a {
 	margin: -2em; 
 	color:rgb(26, 26, 26);
 }
+html {
+	scroll-behavior: smooth;
+}
 
 
 
 
 body {
-	height: 100vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	height: 300vh;
 	overflow-x: hidden;
 	background-color: rgb(26, 26, 26);
 	color: white;
@@ -30,9 +36,6 @@ body {
 	font-display: auto;
 	font-size: 18pt;
 	text-transform: uppercase;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
 }
 
 
@@ -72,6 +75,46 @@ header h1 p:nth-child(2) {
 	margin-left: 10px;
 	color: orange;
 }
+nav button, .big_button, .white_button {
+	font-family: Teko;
+	font-size: 22pt;
+	padding-top: 2px;
+	color: white;
+	background-color: orange;
+	font-style: normal;
+	margin: 0 1vw 0 1vw;
+	width: 40vw;
+	height: 3rem;
+	text-align: center;
+	text-transform: uppercase;
+	animation: fadeInButton .3s forwards linear;
+	animation-delay: .5s;
+	opacity: 0;
+	transform: translateY(20px);
+}
+nav button:hover, .big_button:hover {
+	background-color: rgb(112, 82, 26);
+	color: white;
+	transform: scale(1.05);
+	transition: ease-in;
+}
+.white_button {
+	background-color: white;
+}
+.white_button:hover{
+	background-color: rgb(62, 62, 62);
+}
+.white_button a, .big_button a{
+	display: inline-block;     
+	position: relative;    
+	z-index: 1;     
+	padding: 1em 10em 1em 10em;     
+	margin: -1em -10em -1em -10em; 
+	color:rgb(26, 26, 26);
+}
+.white_button a:hover {
+	color: white;
+}
 
 
 
@@ -94,64 +137,21 @@ header h1 p:nth-child(2) {
 	animation-delay: .24s;
 }
 nav {
-	opacity: 0;
-	transform: translateY(20px);
-	color: rgb(26, 26, 26);
-	width: 100vw;
 	display: flex;
 	justify-content: center;
-	animation: fadeInButton .3s forwards linear;
-	animation-delay: .5s;
+	color: rgb(26, 26, 26);
+	width: 100vw;
 }
-nav button, #submit {
-	font-size: 22pt;
-	padding-top: 2px;
-	color: white;
-	background-color: orange;
-	font-style: normal;
-	margin: 0 1vw 0 1vw;
-	width: 40vw;
-	height: 3rem;
-	text-align: center;
-	text-transform: uppercase;
-}
-nav button:hover, #submit:hover {
-	background-color: rgb(112, 82, 26);
-	color: white;
-	transform: scale(1.05);
-	transition: ease-in;
-}
-.back_button {
-	background-color: white;
-}
-.back_button:hover{
-	background-color: white;
-}
-.back_button a {
-	display: inline-block;     
-	position: relative;    
-	z-index: 1;     
-	padding: 1em 10em 1em 10em;     
-	margin: -1em -10em -1em -10em; 
-	color:rgb(26, 26, 26);
-}
-#submit {
-	margin: 2rem 0 2rem 0;
-	font-family: Teko, sans-serif;
-	transform: skewX(-13deg);
-}
-#submit:hover {
-	transform: skewX(-13deg);
-}
+
 
 
 
 #hero_container {
-	width: 100vw;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
+	width: 100vw;
 	padding-bottom: 2rem;
 }
 #hero_container h2 {
@@ -194,70 +194,58 @@ nav button:hover, #submit:hover {
 	width: 100vw;
 	background-color: #29322c;
 	text-align: center;
+	padding-bottom: 5rem;
 }
 #questions_section h2 {
 	font-size: 60pt;
-	margin-bottom: 2rem;
 	color: orange;
-}
-#questions_container {
-	width: 100vw;
-	display: flex;
-	flex-flow: row;
-	flex-wrap: nowrap;
-	overflow-x: scroll;
 }
 form article {
-	border-right: 1px solid white;
-	padding: 2rem;
+	min-height: 100vh;
+	padding: 3rem;
 }
-.question_hl {
-	display: flex;
-	flex-direction: row;
-}
-.question_hl a {
-	color: orange;
-	font-size: 60pt;
-	font-style: normal;
-	font-family: sans;
-	font-weight: 100;
-	display: block;
-}
-.question_hl a:hover {
-	color: white;
-	transform: scale(1.2);
-}
-.question_hl label {
-	text-align: left;
-	font-size: 28pt;
+.question_hl{
+	font-size: 30pt;
 	font-style: normal;
 	text-transform: none;
 }
-#questions_container article div {
-	width: 60vw;
-	font-size: 22pt;
-	margin-top: 1.5rem;
+form article div {
 	display: flex;
-	flex-flow: row;
-	flex-wrap: wrap;
-}
-#questions_container article span {	
-	font-size: 22pt;
-	display: inline-block;
-	margin: .5rem .2rem 0 0;
-}
-#questions_container article p {
-	margin-top: 2rem;	
-	font-size: 26pt;
-}
-#questions_container article span input {	
-	margin: .5rem .2rem 0 1.5rem;
-}
-.map_question p {
-	width: 100%;
-	margin-top: 2rem;
+	flex-flow: column wrap;
+	align-items: center;
+	overflow-x: scroll;
+	height: 50vh;
+	padding: 2rem 0 2rem 0;
+	margin-bottom: 2rem;
 	font-size: 22pt;
 }
+.map_question div {
+	flex-flow: column nowrap;
+	height: auto;
+}
+.map_question div p {
+	font-size: 32pt;
+	margin-top: 1.5rem;
+	text-align: left;
+}
+form article div span {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin: .3rem;
+	width: 13rem;
+}
+.map_question div span, .map_question div p {
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	width: 22rem;
+	margin-left: 15vw;
+}
+
+
+
+
 
 
 
@@ -269,13 +257,13 @@ form article {
 
 
 #results_section {
-	padding-top: 2rem;
-	width: 100vw;
-	background-color: #2b3145;
 	display: flex;
 	flex-flow: row;
 	flex-wrap: wrap;
 	justify-content: center;
+	padding-top: 2rem;
+	width: 100vw;
+	background-color: #2b3145;
 }
 #results_section h2 {
 	width: 100%;
@@ -338,7 +326,7 @@ form article {
 
 
 @media only screen and (max-width: 600px) {
-	nav button {
+	nav button, .white_button, .big_button {
 		font-size: 4vw;
 	}
 }

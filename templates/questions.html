@@ -9,56 +9,61 @@
 		<p>Scissors</p>
 	</h1>
 	<nav>
-		<button class="back_button">
+		<button class="white_button">
 			<a href="{{ url_for('index') }}?q">Select another hero</a>
 		</button>
 	</nav>
 </header>
 
 <section id="questions_section">
-<h2 id="current_hero">{{ current_hero }}</h2>
-<form action="/{{ current_hero }}-questions" method="POST">
-
-<div id="questions_container">
-	<article id="question_1">
-		<span class="question_hl"><label for="question_1">Who is {{ current_hero }} especially good against?</label><a href="#question_2">></a></span>
-		<div id="question_1"></div>
-	</article>
-	<article id="question_2">
-		<span class="question_hl"><label for="question_2">Who scares you when playing {{ current_hero }}?</label><a href="#question_3">></a></span>
-		<div id="question_2"></div>
-	</article>
-	<article id="question_3">
-		<span class="question_hl"><label for="question_3">Who is an especially good Teammate for {{ current_hero }}?</label><a href="#question_4">></a></span>
-		<div id="question_3"></div>
-	</article>
-	<article id="question_4">
-		<span class="question_hl"><label for="question_4">Who's ultimate should always be combined with {{ current_hero }}'s ultimate?</label><a href="#question_5">></a></span>
-		<div id="question_4"></div>
-	</article>
-	<article id="question_5">
-		<span class="question_hl"><label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label><a href="#question_6">></a></span>
-		<div id="question_5"></div>
-	</article>
-	<article id="question_6">
-		<span class="question_hl"><label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label><a href="#question_7">></a></span>
-		<div id="question_6"></div>
-	</article>
-	<article id="question_7">
-		<span class="question_hl"><label for="question_7">Is there a map type that suits {{ current_hero }} especially well?</label><a href="#question_8">></a></span>
-		<div id="question_7"></div>
-	</article>
-	<article id="question_8">
-		<span class="question_hl"><label for="question_8">Is there a map where it'd be stupid not to play {{ current_hero }}?</label><a href="#question_9">></a></span>
-		<div id="question_8"></div>
-	</article>
-	<article id="question_9">
-		<span class="question_hl"><label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label></span>
-		<div id="question_9"></div>
-	</article>
-</div>
-<input id="submit" type="submit" value="Submit">
-</form>
+	<h2 id="current_hero">{{ current_hero }}</h2>
+	<form action="/{{ current_hero }}-questions" method="POST">
+		<article id="article_1">
+			<span class="question_hl"><label for="question_1">Who is {{ current_hero }} especially good against?</label></span>
+			<div id="question_1"></div>
+			<button class="white_button"><a href="#article_2">Next</a></button>
+		</article>
+		<article id="article_2">
+			<span class="question_hl"><label for="question_2">Who scares you when playing {{ current_hero }}?</label></span>
+			<div id="question_2"></div>
+			<button class="white_button"><a href="#article_3">Next</a></button>
+		</article>
+		<article id="article_3">
+			<span class="question_hl"><label for="question_3">Who is an especially good teammate for {{ current_hero }}?</label></span>
+			<div id="question_3"></div>
+			<button class="white_button"><a href="#article_4">Next</a></button>
+		</article>
+		<article id="article_4">
+			<span class="question_hl"><label for="question_4">Which teammate should always help with {{ current_hero }}'s ultimate?</label></span>
+			<div id="question_4"></div>
+			<button class="white_button"><a href="#article_5">Next</a></button>
+		</article>
+		<article id="article_5">
+			<span class="question_hl"><label for="question_5">Is there an enemy ultimate that {{ current_hero }} can deny easily?</label></span>
+			<div id="question_5"></div>
+			<button class="white_button"><a href="#article_6">Next</a></button>
+		</article>
+		<article id="article_6">
+				<span class="question_hl"><label for="question_6">Which heroes share a similar playstyle with {{ current_hero }}?</label></span>
+			<div id="question_6"></div>
+			<button class="white_button"><a href="#article_7">Next</a></button>
+		</article>
+		<article id="article_7">
+			<span class="question_hl"><label for="question_7">Is there a map type that suits {{ current_hero }} especially well?</label></span>
+			<div id="question_7"></div>
+			<button class="white_button"><a href="#article_8">Next</a></button>
+		</article>
+		<article id="article_8" class="map_question">
+			<span class="question_hl"><label for="question_8">Is there a map where it'd be stupid not to try {{ current_hero }}?</label></span>
+			<div id="question_8"></div>
+			<button class="white_button"><a href="#article_9">Next</a></button>
+		</article>
+		<article id="article_9" class="map_question">
+			<span class="question_hl"><label for="question_9">Is there a map where you'd never play {{ current_hero }}?</label></span>
+			<div id="question_9"></div>
+		</article>
+		<input id="submit" class="big_button" type="submit" value="Submit">
+	</form>
 </section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
