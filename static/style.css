@@ -18,6 +18,9 @@ button a {
 html {
 	scroll-behavior: smooth;
 }
+#body_wrapper {
+	overflow-x: hidden;
+}
 
 
 
@@ -26,7 +29,6 @@ body {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	height: 300vh;
 	overflow-x: hidden;
 	background-color: rgb(26, 26, 26);
 	color: white;
@@ -36,6 +38,7 @@ body {
 	font-display: auto;
 	font-size: 18pt;
 	text-transform: uppercase;
+	min-height: 20000px !important;
 }
 
 
@@ -45,8 +48,7 @@ body {
 	background: orange;
 }
 #messages p {
-	padding-top: 1.2rem;
-	padding-bottom: 1rem;
+	padding: 1.2rem 1rem 1rem 1rem;
 	text-align: center;
 	font-size: 22pt;
 	color:rgb(26, 26, 26);
@@ -142,15 +144,11 @@ nav {
 	color: rgb(26, 26, 26);
 	width: 100vw;
 }
-
-
-
-
 #hero_container {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	flex-flow: row wrap;
 	justify-content: center;
+	align-items: flex-start;
 	width: 100vw;
 	padding-bottom: 2rem;
 }
@@ -201,10 +199,12 @@ nav {
 	color: orange;
 }
 form article {
+	position: relative;
 	min-height: 100vh;
 	padding: 3rem;
 }
 .question_hl{
+	color: orange;
 	font-size: 30pt;
 	font-style: normal;
 	text-transform: none;
@@ -219,28 +219,38 @@ form article div {
 	margin-bottom: 2rem;
 	font-size: 22pt;
 }
-.map_question div {
-	flex-flow: column nowrap;
-	height: auto;
-}
-.map_question div p {
-	font-size: 32pt;
-	margin-top: 1.5rem;
-	text-align: left;
+.scroll_indicator {
+	position: absolute;
+	top: 30vh;
+	right: 1.5rem;
+	font-style: normal;
+	color: orange;
+	font-size: 30pt;
+	z-index: 3;
+	overflow: hidden;
 }
 form article div span {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: flex-start;
-	align-items: flex-start;
+	align-items: center;
 	margin: .3rem;
 	width: 13rem;
 }
-.map_question div span, .map_question div p {
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-	width: 22rem;
-	margin-left: 15vw;
+.map_question div {
+	flex-flow: row wrap;
+	justify-content: center;
+	overflow-x: auto;
+	height: auto;
+}
+.map_question div p {
+	width: 100%;
+	font-size: 32pt;
+	margin-top: 1.5rem;
+	text-align: center;
+}
+.map_question div span {
+	width: auto; 
 }
 
 
@@ -329,4 +339,14 @@ form article div span {
 	nav button, .white_button, .big_button {
 		font-size: 4vw;
 	}
+	.question_hl, form article div {
+		font-size: 5vw;
+	}
+	form article div span {
+		width: 35vw;
+	}
+	.map_question div p {
+		font-size: 7vw;
+	}
+	
 }

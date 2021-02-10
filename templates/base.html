@@ -2,7 +2,8 @@
 <html lang="en" style="width: 100vw">
 <head>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 	<link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,15 +12,17 @@
     <title>Rock-Pharah-Scissors</title>
 </head>
 <body>
-	<section id="messages">
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-				{% for message in messages %}
-				<p>{{ message }}</p>
-				{% endfor %}
-			{% endif %}
-		{% endwith %}
-	</section>
-    {% block body %}{% endblock %}
+	<div id="body_wrapper">
+		<section id="messages">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+					<p>{{ message }}</p>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+		</section>
+		{% block body %}{% endblock %}
+	</div>
 </body>
 </html> 
