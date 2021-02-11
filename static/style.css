@@ -203,6 +203,9 @@ form article {
 	min-height: 100vh;
 	padding: 3rem;
 }
+#article_9 {
+	min-height: 70vh;
+}
 .question_hl{
 	color: orange;
 	font-size: 30pt;
@@ -220,6 +223,7 @@ form article div {
 	font-size: 22pt;
 }
 .scroll_indicator {
+	opacity: 0;
 	position: absolute;
 	top: 30vh;
 	right: 1.5rem;
@@ -233,7 +237,7 @@ form article div span {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: flex-start;
-	align-items: center;
+	align-items: baseline;
 	margin: .3rem;
 	width: 13rem;
 }
@@ -348,5 +352,7 @@ form article div span {
 	.map_question div p {
 		font-size: 7vw;
 	}
-	
+	.scroll_indicator {
+		opacity: 1;
+	}
 }
